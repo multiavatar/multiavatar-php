@@ -47,370 +47,369 @@ class Multiavatar {
 
 
     public function generate($avatarId, $sansEnv, $ver) {
-        $string = strval($avatarId);
-    
+        
         $themes = [];
     
         // Robo
-        $themes['00']["A"]["env"] = [ "#ff2f2b" ];
-        $themes['00']["A"]["clo"] = ["#fff", "#000"];
-        $themes['00']["A"]["head"] = ["#fff"];
-        $themes['00']["A"]["mouth"] = ["#fff", "#000", "#000"];
-        $themes['00']["A"]["eyes"] = ["#000", "none", "#00FFFF"];
-        $themes['00']["A"]["top"] = ["#fff", "#fff"];
+        $themes['00']['A']['env'] = [ "#ff2f2b" ];
+        $themes['00']['A']['clo'] = ["#fff", "#000"];
+        $themes['00']['A']['head'] = ["#fff"];
+        $themes['00']['A']['mouth'] = ["#fff", "#000", "#000"];
+        $themes['00']['A']['eyes'] = ["#000", "none", "#00FFFF"];
+        $themes['00']['A']['top'] = ["#fff", "#fff"];
     
-        $themes['00']["B"]["env"] = ["#ff1ec1"];
-        $themes['00']["B"]["clo"] = ["#000", "#fff" ];
-        $themes['00']["B"]["head"] = ["#ffc1c1"];
-        $themes['00']["B"]["mouth"] = ["#fff", "#000", "#000"];
-        $themes['00']["B"]["eyes"] = ["#FF2D00", "#fff", "none"];
-        $themes['00']["B"]["top"] = ["#a21d00", "#fff"];
+        $themes['00']['B']['env'] = ["#ff1ec1"];
+        $themes['00']['B']['clo'] = ["#000", "#fff" ];
+        $themes['00']['B']['head'] = ["#ffc1c1"];
+        $themes['00']['B']['mouth'] = ["#fff", "#000", "#000"];
+        $themes['00']['B']['eyes'] = ["#FF2D00", "#fff", "none"];
+        $themes['00']['B']['top'] = ["#a21d00", "#fff"];
     
-        $themes['00']["C"]["env"] = ["#0079b1"];
-        $themes['00']["C"]["clo"] = ["#0e00b1", "#d1fffe"];
-        $themes['00']["C"]["head"] = ["#f5aa77"];
-        $themes['00']["C"]["mouth"] = ["#fff", "#000", "#000"];
-        $themes['00']["C"]["eyes"] = ["#0c00de", "#fff", "none"];
-        $themes['00']["C"]["top"] = ["#acfffd", "#acfffd"];
+        $themes['00']['C']['env'] = ["#0079b1"];
+        $themes['00']['C']['clo'] = ["#0e00b1", "#d1fffe"];
+        $themes['00']['C']['head'] = ["#f5aa77"];
+        $themes['00']['C']['mouth'] = ["#fff", "#000", "#000"];
+        $themes['00']['C']['eyes'] = ["#0c00de", "#fff", "none"];
+        $themes['00']['C']['top'] = ["#acfffd", "#acfffd"];
     
         // Girl
-        $themes['01']["A"]["env"] = ["#a50000"];
-        $themes['01']["A"]["clo"] = ["#f06", "#8e0039"];
-        $themes['01']["A"]["head"] = ["#85492C"];
-        $themes['01']["A"]["mouth"] = ["#000"];
-        $themes['01']["A"]["eyes"] = ["#000", "#ff9809"];
-        $themes['01']["A"]["top"] = ["#ff9809", "#ff9809", "none", "none"];
+        $themes['01']['A']['env'] = ["#a50000"];
+        $themes['01']['A']['clo'] = ["#f06", "#8e0039"];
+        $themes['01']['A']['head'] = ["#85492C"];
+        $themes['01']['A']['mouth'] = ["#000"];
+        $themes['01']['A']['eyes'] = ["#000", "#ff9809"];
+        $themes['01']['A']['top'] = ["#ff9809", "#ff9809", "none", "none"];
     
-        $themes['01']["B"]["env"] = ["#40E83B"];
-        $themes['01']["B"]["clo"] = ["#00650b", "#62ce5a"];
-        $themes['01']["B"]["head"] = ["#f7c1a6"];
-        $themes['01']["B"]["mouth"] = ["#6e1c1c"];
-        $themes['01']["B"]["eyes"] = ["#000", "#ff833b"];
-        $themes['01']["B"]["top"] = ["#67FFCC", "none", "none", "#ecff3b"];
+        $themes['01']['B']['env'] = ["#40E83B"];
+        $themes['01']['B']['clo'] = ["#00650b", "#62ce5a"];
+        $themes['01']['B']['head'] = ["#f7c1a6"];
+        $themes['01']['B']['mouth'] = ["#6e1c1c"];
+        $themes['01']['B']['eyes'] = ["#000", "#ff833b"];
+        $themes['01']['B']['top'] = ["#67FFCC", "none", "none", "#ecff3b"];
     
-        $themes['01']["C"]["env"] = ["#ff2c2c"];
-        $themes['01']["C"]["clo"] = ["#fff", "#000"];
-        $themes['01']["C"]["head"] = ["#ffce8b"];
-        $themes['01']["C"]["mouth"] = ["#000"];
-        $themes['01']["C"]["eyes"] = ["#000", "#0072ff"];
-        $themes['01']["C"]["top"] = ["#ff9809", "none", "#ffc809", "none"];
+        $themes['01']['C']['env'] = ["#ff2c2c"];
+        $themes['01']['C']['clo'] = ["#fff", "#000"];
+        $themes['01']['C']['head'] = ["#ffce8b"];
+        $themes['01']['C']['mouth'] = ["#000"];
+        $themes['01']['C']['eyes'] = ["#000", "#0072ff"];
+        $themes['01']['C']['top'] = ["#ff9809", "none", "#ffc809", "none"];
     
         // Blonde
-        $themes['02']["A"]["env"] = ["#ff7520"];
-        $themes['02']["A"]["clo"] = ["#d12823"];
-        $themes['02']["A"]["head"] = ["#fee3c5"];
-        $themes['02']["A"]["mouth"] = ["#d12823"];
-        $themes['02']["A"]["eyes"] = ["#000", "none"];
-        $themes['02']["A"]["top"] = ["#000", "none", "none",  "#FFCC00", "red"];
+        $themes['02']['A']['env'] = ["#ff7520"];
+        $themes['02']['A']['clo'] = ["#d12823"];
+        $themes['02']['A']['head'] = ["#fee3c5"];
+        $themes['02']['A']['mouth'] = ["#d12823"];
+        $themes['02']['A']['eyes'] = ["#000", "none"];
+        $themes['02']['A']['top'] = ["#000", "none", "none",  "#FFCC00", "red"];
     
-        $themes['02']["B"]["env"] = ["#ff9700"];
-        $themes['02']["B"]["clo"] = ["#000"];
-        $themes['02']["B"]["head"] = ["#d2ad6d"];
-        $themes['02']["B"]["mouth"] = ["#000"];
-        $themes['02']["B"]["eyes"] = ["#000", "#00ffdc"];
-        $themes['02']["B"]["top"] = ["#fdff00", "#fdff00", "none", "none", "none"];
+        $themes['02']['B']['env'] = ["#ff9700"];
+        $themes['02']['B']['clo'] = ["#000"];
+        $themes['02']['B']['head'] = ["#d2ad6d"];
+        $themes['02']['B']['mouth'] = ["#000"];
+        $themes['02']['B']['eyes'] = ["#000", "#00ffdc"];
+        $themes['02']['B']['top'] = ["#fdff00", "#fdff00", "none", "none", "none"];
     
-        $themes['02']["C"]["env"] = ["#26a7ff"];
-        $themes['02']["C"]["clo"] = ["#d85cd7"];
-        $themes['02']["C"]["head"] = ["#542e02"];
-        $themes['02']["C"]["mouth"] = ["#f70014"];
-        $themes['02']["C"]["eyes"] = ["#000", "magenta"];
-        $themes['02']["C"]["top"] = ["#FFCC00", "#FFCC00", "#FFCC00", "#ff0000", "yellow"];
+        $themes['02']['C']['env'] = ["#26a7ff"];
+        $themes['02']['C']['clo'] = ["#d85cd7"];
+        $themes['02']['C']['head'] = ["#542e02"];
+        $themes['02']['C']['mouth'] = ["#f70014"];
+        $themes['02']['C']['eyes'] = ["#000", "magenta"];
+        $themes['02']['C']['top'] = ["#FFCC00", "#FFCC00", "#FFCC00", "#ff0000", "yellow"];
     
         // Evilnormie
-        $themes['03']["A"]["env"] = ["#6FC30E"];
-        $themes['03']["A"]["clo"] = ["#b4e1fa", "#5b5d6e", "#515262", "#a0d2f0", "#a0d2f0"];
-        $themes['03']["A"]["head"] = ["#fae3b9"];
-        $themes['03']["A"]["mouth"] = ["#fff", "#000"];
-        $themes['03']["A"]["eyes"] = ["#000"];
-        $themes['03']["A"]["top"] = ["#8eff45", "#8eff45", "none", "none"];
+        $themes['03']['A']['env'] = ["#6FC30E"];
+        $themes['03']['A']['clo'] = ["#b4e1fa", "#5b5d6e", "#515262", "#a0d2f0", "#a0d2f0"];
+        $themes['03']['A']['head'] = ["#fae3b9"];
+        $themes['03']['A']['mouth'] = ["#fff", "#000"];
+        $themes['03']['A']['eyes'] = ["#000"];
+        $themes['03']['A']['top'] = ["#8eff45", "#8eff45", "none", "none"];
     
-        $themes['03']["B"]["env"] = ["#00a58c"];
-        $themes['03']["B"]["clo"] = ["#000", "#5b00", "#5100", "#a000", "#a000"];
-        $themes['03']["B"]["head"] = ["#FAD2B9"];
-        $themes['03']["B"]["mouth"] = ["#fff", "#000"];
-        $themes['03']["B"]["eyes"] = ["#000"];
-        $themes['03']["B"]["top"] = ["#FFC600", "none", "#FFC600", "none"];
+        $themes['03']['B']['env'] = ["#00a58c"];
+        $themes['03']['B']['clo'] = ["#000", "#5b00", "#5100", "#a000", "#a000"];
+        $themes['03']['B']['head'] = ["#FAD2B9"];
+        $themes['03']['B']['mouth'] = ["#fff", "#000"];
+        $themes['03']['B']['eyes'] = ["#000"];
+        $themes['03']['B']['top'] = ["#FFC600", "none", "#FFC600", "none"];
     
-        $themes['03']["C"]["env"] = ["#ff501f"];
-        $themes['03']["C"]["clo"] = ["#000", "#ff0000", "#ff0000", "#7d7d7d", "#7d7d7d"];
-        $themes['03']["C"]["head"] = ["#fff3dc"];
-        $themes['03']["C"]["mouth"] = ["#d2001b", "none"];
-        $themes['03']["C"]["eyes"] = ["#000"];
-        $themes['03']["C"]["top"] = ["#D2001B", "none", "none", "#D2001B"];
+        $themes['03']['C']['env'] = ["#ff501f"];
+        $themes['03']['C']['clo'] = ["#000", "#ff0000", "#ff0000", "#7d7d7d", "#7d7d7d"];
+        $themes['03']['C']['head'] = ["#fff3dc"];
+        $themes['03']['C']['mouth'] = ["#d2001b", "none"];
+        $themes['03']['C']['eyes'] = ["#000"];
+        $themes['03']['C']['top'] = ["#D2001B", "none", "none", "#D2001B"];
     
         // Country
-        $themes['04']["A"]["env"] = ["#fc0"];
-        $themes['04']["A"]["clo"] = ["#901e0e", "#ffbe1e", "#ffbe1e", "#c55f54"];
-        $themes['04']["A"]["head"] = ["#f8d9ad"];
-        $themes['04']["A"]["mouth"] = ["#000", "none", "#000", "none"];
-        $themes['04']["A"]["eyes"] = ["#000"];
-        $themes['04']["A"]["top"] = ["#583D00", "#AF892E", "#462D00", "#a0a0a0"];
+        $themes['04']['A']['env'] = ["#fc0"];
+        $themes['04']['A']['clo'] = ["#901e0e", "#ffbe1e", "#ffbe1e", "#c55f54"];
+        $themes['04']['A']['head'] = ["#f8d9ad"];
+        $themes['04']['A']['mouth'] = ["#000", "none", "#000", "none"];
+        $themes['04']['A']['eyes'] = ["#000"];
+        $themes['04']['A']['top'] = ["#583D00", "#AF892E", "#462D00", "#a0a0a0"];
     
-        $themes['04']["B"]["env"] = ["#386465"];
-        $themes['04']["B"]["clo"] = ["#fff", "#333", "#333", "#333"];
-        $themes['04']["B"]["head"] = ["#FFD79D"];
-        $themes['04']["B"]["mouth"] = ["#000", "#000", "#000", "#000"];
-        $themes['04']["B"]["eyes"] = ["#000"];
-        $themes['04']["B"]["top"] = ["#27363C", "#5DCAD4", "#314652", "#333"];
+        $themes['04']['B']['env'] = ["#386465"];
+        $themes['04']['B']['clo'] = ["#fff", "#333", "#333", "#333"];
+        $themes['04']['B']['head'] = ["#FFD79D"];
+        $themes['04']['B']['mouth'] = ["#000", "#000", "#000", "#000"];
+        $themes['04']['B']['eyes'] = ["#000"];
+        $themes['04']['B']['top'] = ["#27363C", "#5DCAD4", "#314652", "#333"];
     
-        $themes['04']["C"]["env"] = ["#DFFF00"];
-        $themes['04']["C"]["clo"] = ["#304267", "#aab0b1", "#aab0b1", "#aab0b1"];
-        $themes['04']["C"]["head"] = ["#e6b876"];
-        $themes['04']["C"]["mouth"] = ["#50230a", "#50230a", "#50230a", "#50230a"];
-        $themes['04']["C"]["eyes"] = ["#000"];
-        $themes['04']["C"]["top"] = ["#333", "#afafaf", "#222", "#6d3a1d"];
+        $themes['04']['C']['env'] = ["#DFFF00"];
+        $themes['04']['C']['clo'] = ["#304267", "#aab0b1", "#aab0b1", "#aab0b1"];
+        $themes['04']['C']['head'] = ["#e6b876"];
+        $themes['04']['C']['mouth'] = ["#50230a", "#50230a", "#50230a", "#50230a"];
+        $themes['04']['C']['eyes'] = ["#000"];
+        $themes['04']['C']['top'] = ["#333", "#afafaf", "#222", "#6d3a1d"];
     
         // Johnyold
-        $themes['05']["A"]["env"] = ["#a09300"];
-        $themes['05']["A"]["clo"] = ["#c7d4e2", "#435363", "#435363", "#141720", "#141720", "#e7ecf2", "#e7ecf2"];
-        $themes['05']["A"]["head"] = ["#f5d4a6"];
-        $themes['05']["A"]["mouth"] = ["#000", "#cf9f76"];
-        $themes['05']["A"]["eyes"] = ["#000", "#000", "#000", "#000", "#000", "#000", "#fff", "#fff", "#fff", "#fff", "#000", "#000"];
-        $themes['05']["A"]["top"] = ["none", "#fdff00"];
+        $themes['05']['A']['env'] = ["#a09300"];
+        $themes['05']['A']['clo'] = ["#c7d4e2", "#435363", "#435363", "#141720", "#141720", "#e7ecf2", "#e7ecf2"];
+        $themes['05']['A']['head'] = ["#f5d4a6"];
+        $themes['05']['A']['mouth'] = ["#000", "#cf9f76"];
+        $themes['05']['A']['eyes'] = ["#000", "#000", "#000", "#000", "#000", "#000", "#fff", "#fff", "#fff", "#fff", "#000", "#000"];
+        $themes['05']['A']['top'] = ["none", "#fdff00"];
     
-        $themes['05']["B"]["env"] = ["#b3003e"];
-        $themes['05']["B"]["clo"] = ["#000", "#435363", "#435363", "#000", "none", "#e7ecf2", "#e7ecf2"];
-        $themes['05']["B"]["head"] = ["#f5d4a6"];
-        $themes['05']["B"]["mouth"] = ["#000", "#af9f94"];
-        $themes['05']["B"]["eyes"] = ["#9ff3ffdb", "#000", "#9ff3ffdb", "#000", "#2f508a", "#000", "#000", "#000", "none", "none", "none", "none"];
-        $themes['05']["B"]["top"] = ["#ff9a00", "#ff9a00"];
+        $themes['05']['B']['env'] = ["#b3003e"];
+        $themes['05']['B']['clo'] = ["#000", "#435363", "#435363", "#000", "none", "#e7ecf2", "#e7ecf2"];
+        $themes['05']['B']['head'] = ["#f5d4a6"];
+        $themes['05']['B']['mouth'] = ["#000", "#af9f94"];
+        $themes['05']['B']['eyes'] = ["#9ff3ffdb", "#000", "#9ff3ffdb", "#000", "#2f508a", "#000", "#000", "#000", "none", "none", "none", "none"];
+        $themes['05']['B']['top'] = ["#ff9a00", "#ff9a00"];
     
-        $themes['05']["C"]["env"] = ["#884f00"];
-        $themes['05']["C"]["clo"] = ["#ff0000", "#fff", "#fff", "#141720", "#141720", "#e7ecf2", "#e7ecf2"];
-        $themes['05']["C"]["head"] = ["#c57b14"];
-        $themes['05']["C"]["mouth"] = ["#000", "#cf9f76"];
-        $themes['05']["C"]["eyes"] = ["none", "#000", "none", "#000", "#5a0000", "#000", "#000", "#000", "none", "none", "none", "none"];
-        $themes['05']["C"]["top"] = ["#efefef", "none"];
+        $themes['05']['C']['env'] = ["#884f00"];
+        $themes['05']['C']['clo'] = ["#ff0000", "#fff", "#fff", "#141720", "#141720", "#e7ecf2", "#e7ecf2"];
+        $themes['05']['C']['head'] = ["#c57b14"];
+        $themes['05']['C']['mouth'] = ["#000", "#cf9f76"];
+        $themes['05']['C']['eyes'] = ["none", "#000", "none", "#000", "#5a0000", "#000", "#000", "#000", "none", "none", "none", "none"];
+        $themes['05']['C']['top'] = ["#efefef", "none"];
     
         // Asian
-        $themes['06']["A"]["env"] = ["#8acf00"];
-        $themes['06']["A"]["clo"] = ["#ee2829", "#ff0"];
-        $themes['06']["A"]["head"] = ["#ffce73"];
-        $themes['06']["A"]["mouth"] = ["#fff", "#000"];
-        $themes['06']["A"]["eyes"] = ["#000"];
-        $themes['06']["A"]["top"] = ["#000","#000","none", "#000", "#ff4e4e", "#000"];
+        $themes['06']['A']['env'] = ["#8acf00"];
+        $themes['06']['A']['clo'] = ["#ee2829", "#ff0"];
+        $themes['06']['A']['head'] = ["#ffce73"];
+        $themes['06']['A']['mouth'] = ["#fff", "#000"];
+        $themes['06']['A']['eyes'] = ["#000"];
+        $themes['06']['A']['top'] = ["#000","#000","none", "#000", "#ff4e4e", "#000"];
     
-        $themes['06']["B"]["env"] = ["#00d2a3"];
-        $themes['06']["B"]["clo"] = ["#0D0046", "#ffce73"];
-        $themes['06']["B"]["head"] = ["#ffce73"];
-        $themes['06']["B"]["mouth"] = ["#000", "none"];
-        $themes['06']["B"]["eyes"] = ["#000"];
-        $themes['06']["B"]["top"] = ["#000","#000","#000", "none", "#ffb358",  "#000", "none", "none"];
+        $themes['06']['B']['env'] = ["#00d2a3"];
+        $themes['06']['B']['clo'] = ["#0D0046", "#ffce73"];
+        $themes['06']['B']['head'] = ["#ffce73"];
+        $themes['06']['B']['mouth'] = ["#000", "none"];
+        $themes['06']['B']['eyes'] = ["#000"];
+        $themes['06']['B']['top'] = ["#000","#000","#000", "none", "#ffb358",  "#000", "none", "none"];
     
-        $themes['06']["C"]["env"] = ["#ff184e"];
-        $themes['06']["C"]["clo"] = ["#000", "none"];
-        $themes['06']["C"]["head"] = ["#ffce73"];
-        $themes['06']["C"]["mouth"] = ["#ff0000", "none"];
-        $themes['06']["C"]["eyes"] = ["#000"];
-        $themes['06']["C"]["top"] = ["none","none","none", "none", "none",  "#ffc107", "none", "none"];
+        $themes['06']['C']['env'] = ["#ff184e"];
+        $themes['06']['C']['clo'] = ["#000", "none"];
+        $themes['06']['C']['head'] = ["#ffce73"];
+        $themes['06']['C']['mouth'] = ["#ff0000", "none"];
+        $themes['06']['C']['eyes'] = ["#000"];
+        $themes['06']['C']['top'] = ["none","none","none", "none", "none",  "#ffc107", "none", "none"];
     
         // Punk
-        $themes['07']["A"]["env"] = ["#00deae"];
-        $themes['07']["A"]["clo"] = ["#ff0000"];
-        $themes['07']["A"]["head"] = ["#ffce94"];
-        $themes['07']["A"]["mouth"] = ["#f73b6c", "#000"];
-        $themes['07']["A"]["eyes"] = ["#e91e63", "#000", "#e91e63", "#000", "#000", "#000"];
-        $themes['07']["A"]["top"] = ["#dd104f", "#dd104f", "#f73b6c", "#dd104f"];
+        $themes['07']['A']['env'] = ["#00deae"];
+        $themes['07']['A']['clo'] = ["#ff0000"];
+        $themes['07']['A']['head'] = ["#ffce94"];
+        $themes['07']['A']['mouth'] = ["#f73b6c", "#000"];
+        $themes['07']['A']['eyes'] = ["#e91e63", "#000", "#e91e63", "#000", "#000", "#000"];
+        $themes['07']['A']['top'] = ["#dd104f", "#dd104f", "#f73b6c", "#dd104f"];
     
-        $themes['07']["B"]["env"] = ["#181284"];
-        $themes['07']["B"]["clo"] = ["#491f49", "#ff9809", "#491f49"];
-        $themes['07']["B"]["head"] = ["#f6ba97"];
-        $themes['07']["B"]["mouth"] = ["#ff9809", "#000"];
-        $themes['07']["B"]["eyes"] = ["#c4ffe4", "#000", "#c4ffe4", "#000", "#000", "#000"];
-        $themes['07']["B"]["top"] = [ "none", "none", "#d6f740", "#516303"];
+        $themes['07']['B']['env'] = ["#181284"];
+        $themes['07']['B']['clo'] = ["#491f49", "#ff9809", "#491f49"];
+        $themes['07']['B']['head'] = ["#f6ba97"];
+        $themes['07']['B']['mouth'] = ["#ff9809", "#000"];
+        $themes['07']['B']['eyes'] = ["#c4ffe4", "#000", "#c4ffe4", "#000", "#000", "#000"];
+        $themes['07']['B']['top'] = [ "none", "none", "#d6f740", "#516303"];
     
-        $themes['07']["C"]["env"] = ["#bcf700"];
-        $themes['07']["C"]["clo"] = ["#ff14e4", "#000", "#14fffd"];
-        $themes['07']["C"]["head"] = ["#7b401e"];
-        $themes['07']["C"]["mouth"] = ["#666", "#000"];
-        $themes['07']["C"]["eyes"] = ["#00b5b4", "#000", "#00b5b4", "#000", "#000", "#000"];
-        $themes['07']["C"]["top"] = ["#14fffd", "#14fffd", "#14fffd", "#0d3a62"];
+        $themes['07']['C']['env'] = ["#bcf700"];
+        $themes['07']['C']['clo'] = ["#ff14e4", "#000", "#14fffd"];
+        $themes['07']['C']['head'] = ["#7b401e"];
+        $themes['07']['C']['mouth'] = ["#666", "#000"];
+        $themes['07']['C']['eyes'] = ["#00b5b4", "#000", "#00b5b4", "#000", "#000", "#000"];
+        $themes['07']['C']['top'] = ["#14fffd", "#14fffd", "#14fffd", "#0d3a62"];
     
         // Afrohair
-        $themes['08']["A"]["env"] = ["#0df"];
-        $themes['08']["A"]["clo"] = ["#571e57", "#ff0"];
-        $themes['08']["A"]["head"] = ["#f2c280"];
-        $themes['08']["A"]["mouth"] = ["#795548", "#000"];
-        $themes['08']["A"]["eyes"] = ["#ff0000"];
-        $themes['08']["A"]["top"] = ["#de3b00", "none"];
+        $themes['08']['A']['env'] = ["#0df"];
+        $themes['08']['A']['clo'] = ["#571e57", "#ff0"];
+        $themes['08']['A']['head'] = ["#f2c280"];
+        $themes['08']['A']['mouth'] = ["#795548", "#000"];
+        $themes['08']['A']['eyes'] = ["#ff0000"];
+        $themes['08']['A']['top'] = ["#de3b00", "none"];
     
-        $themes['08']["B"]["env"] = ["#B400C2"];
-        $themes['08']["B"]["clo"] = ["#0D204A", "#00ffdf"];
-        $themes['08']["B"]["head"] = ["#ca8628"];
-        $themes['08']["B"]["mouth"] = ["#cbbdaf", "#000"];
-        $themes['08']["B"]["eyes"] = ["#1a1a1a"];
-        $themes['08']["B"]["top"] = ["#000", "#000"];
+        $themes['08']['B']['env'] = ["#B400C2"];
+        $themes['08']['B']['clo'] = ["#0D204A", "#00ffdf"];
+        $themes['08']['B']['head'] = ["#ca8628"];
+        $themes['08']['B']['mouth'] = ["#cbbdaf", "#000"];
+        $themes['08']['B']['eyes'] = ["#1a1a1a"];
+        $themes['08']['B']['top'] = ["#000", "#000"];
     
-        $themes['08']["C"]["env"] = ["#ffe926"];
-        $themes['08']["C"]["clo"] = ["#00d6af", "#000"];
-        $themes['08']["C"]["head"] = ["#8c5100"];
-        $themes['08']["C"]["mouth"] = ["none", "#000"];
-        $themes['08']["C"]["eyes"] = ["#7d0000"];
-        $themes['08']["C"]["top"] = ["#f7f7f7", "none"];
+        $themes['08']['C']['env'] = ["#ffe926"];
+        $themes['08']['C']['clo'] = ["#00d6af", "#000"];
+        $themes['08']['C']['head'] = ["#8c5100"];
+        $themes['08']['C']['mouth'] = ["none", "#000"];
+        $themes['08']['C']['eyes'] = ["#7d0000"];
+        $themes['08']['C']['top'] = ["#f7f7f7", "none"];
     
         // Normie female
-        $themes['09']["A"]["env"] = ["#4aff0c"];
-        $themes['09']["A"]["clo"] = ["#101010", "#fff", "#fff"];
-        $themes['09']["A"]["head"] = ["#dbbc7f"];
-        $themes['09']["A"]["mouth"] = ["#000"];
-        $themes['09']["A"]["eyes"] = [ "#000", "none", "none"];
-        $themes['09']["A"]["top"] = ["#531148", "#531148", "#531148", "none"];
+        $themes['09']['A']['env'] = ["#4aff0c"];
+        $themes['09']['A']['clo'] = ["#101010", "#fff", "#fff"];
+        $themes['09']['A']['head'] = ["#dbbc7f"];
+        $themes['09']['A']['mouth'] = ["#000"];
+        $themes['09']['A']['eyes'] = [ "#000", "none", "none"];
+        $themes['09']['A']['top'] = ["#531148", "#531148", "#531148", "none"];
     
-        $themes['09']["B"]["env"] = ["#FFC107"];
-        $themes['09']["B"]["clo"] = ["#033c58", "#fff", "#fff"];
-        $themes['09']["B"]["head"] = ["#dbc97f"];
-        $themes['09']["B"]["mouth"] = ["#000"];
-        $themes['09']["B"]["eyes"] = ["none", "#fff", "#000"];
-        $themes['09']["B"]["top"] = ["#FFEB3B", "#FFEB3B", "none", "#FFEB3B"];
+        $themes['09']['B']['env'] = ["#FFC107"];
+        $themes['09']['B']['clo'] = ["#033c58", "#fff", "#fff"];
+        $themes['09']['B']['head'] = ["#dbc97f"];
+        $themes['09']['B']['mouth'] = ["#000"];
+        $themes['09']['B']['eyes'] = ["none", "#fff", "#000"];
+        $themes['09']['B']['top'] = ["#FFEB3B", "#FFEB3B", "none", "#FFEB3B"];
     
-        $themes['09']["C"]["env"] = ["#FF9800"];
-        $themes['09']["C"]["clo"] = ["#b40000", "#fff", "#fff"];
-        $themes['09']["C"]["head"] = ["#E2AF6B"];
-        $themes['09']["C"]["mouth"] = ["#000"];
-        $themes['09']["C"]["eyes"] = ["none", "#fff", "#000"];
-        $themes['09']["C"]["top"] = ["#ec0000", "#ec0000", "none", "none"];
+        $themes['09']['C']['env'] = ["#FF9800"];
+        $themes['09']['C']['clo'] = ["#b40000", "#fff", "#fff"];
+        $themes['09']['C']['head'] = ["#E2AF6B"];
+        $themes['09']['C']['mouth'] = ["#000"];
+        $themes['09']['C']['eyes'] = ["none", "#fff", "#000"];
+        $themes['09']['C']['top'] = ["#ec0000", "#ec0000", "none", "none"];
     
         // Older
-        $themes['10']["A"]["env"] = ["#104c8c"];
-        $themes['10']["A"]["clo"] = ["#354B65", "#3D8EBB", "#89D0DA", "#00FFFD" ];
-        $themes['10']["A"]["head"] = ["#cc9a5c"];
-        $themes['10']["A"]["mouth"] = ["#222", "#fff"];
-        $themes['10']["A"]["eyes"] = ["#000", "#000"];
-        $themes['10']["A"]["top"] = ["#fff", "#fff", "none"];
+        $themes['10']['A']['env'] = ["#104c8c"];
+        $themes['10']['A']['clo'] = ["#354B65", "#3D8EBB", "#89D0DA", "#00FFFD" ];
+        $themes['10']['A']['head'] = ["#cc9a5c"];
+        $themes['10']['A']['mouth'] = ["#222", "#fff"];
+        $themes['10']['A']['eyes'] = ["#000", "#000"];
+        $themes['10']['A']['top'] = ["#fff", "#fff", "none"];
     
-        $themes['10']["B"]["env"] = ["#0DC15C"];
-        $themes['10']["B"]["clo"] = ["#212121", "#fff", "#212121", "#fff", ];
-        $themes['10']["B"]["head"] = ["#dca45f"];
-        $themes['10']["B"]["mouth"] = ["#111", "#633b1d"];
-        $themes['10']["B"]["eyes"] = ["#000", "#000"];
-        $themes['10']["B"]["top"] = ["none", "#792B74", "#792B74"];
+        $themes['10']['B']['env'] = ["#0DC15C"];
+        $themes['10']['B']['clo'] = ["#212121", "#fff", "#212121", "#fff", ];
+        $themes['10']['B']['head'] = ["#dca45f"];
+        $themes['10']['B']['mouth'] = ["#111", "#633b1d"];
+        $themes['10']['B']['eyes'] = ["#000", "#000"];
+        $themes['10']['B']['top'] = ["none", "#792B74", "#792B74"];
     
-        $themes['10']["C"]["env"] = ["#ffe500"];
-        $themes['10']["C"]["clo"] = ["#1e5e80", "#fff", "#1e5e80", "#fff"];
-        $themes['10']["C"]["head"] = ["#e8bc86"];
-        $themes['10']["C"]["mouth"] = ["#111", "none"];
-        $themes['10']["C"]["eyes"] = ["#000", "#000"];
-        $themes['10']["C"]["top"] = ["none", "none", "#633b1d"];
+        $themes['10']['C']['env'] = ["#ffe500"];
+        $themes['10']['C']['clo'] = ["#1e5e80", "#fff", "#1e5e80", "#fff"];
+        $themes['10']['C']['head'] = ["#e8bc86"];
+        $themes['10']['C']['mouth'] = ["#111", "none"];
+        $themes['10']['C']['eyes'] = ["#000", "#000"];
+        $themes['10']['C']['top'] = ["none", "none", "#633b1d"];
     
         // Firehair
-        $themes['11']["A"]["env"] = ["#4a3f73"];
-        $themes['11']["A"]["clo"] = ["#e6e9ee", "#f1543f", "#ff7058", "#fff", "#fff"];
-        $themes['11']["A"]["head"] = ["#b27e5b"];
-        $themes['11']["A"]["mouth"] = ["#191919", "#191919"];
-        $themes['11']["A"]["eyes"] = ["#000", "#000", "#57FFFD"];
-        $themes['11']["A"]["top"] = ["#ffc", "#ffc", "#ffc"];
+        $themes['11']['A']['env'] = ["#4a3f73"];
+        $themes['11']['A']['clo'] = ["#e6e9ee", "#f1543f", "#ff7058", "#fff", "#fff"];
+        $themes['11']['A']['head'] = ["#b27e5b"];
+        $themes['11']['A']['mouth'] = ["#191919", "#191919"];
+        $themes['11']['A']['eyes'] = ["#000", "#000", "#57FFFD"];
+        $themes['11']['A']['top'] = ["#ffc", "#ffc", "#ffc"];
     
-        $themes['11']["B"]["env"] = ["#00a08d"];
-        $themes['11']["B"]["clo"] = ["#FFBA32", "#484848", "#4e4e4e", "#fff", "#fff"];
-        $themes['11']["B"]["head"] = ["#ab5f2c"];
-        $themes['11']["B"]["mouth"] = ["#191919", "#191919"];
-        $themes['11']["B"]["eyes"] = ["#000", "#ff23fa63", "#000"];
-        $themes['11']["B"]["top"] = ["#ff90f4", "#ff90f4", "#ff90f4"];
+        $themes['11']['B']['env'] = ["#00a08d"];
+        $themes['11']['B']['clo'] = ["#FFBA32", "#484848", "#4e4e4e", "#fff", "#fff"];
+        $themes['11']['B']['head'] = ["#ab5f2c"];
+        $themes['11']['B']['mouth'] = ["#191919", "#191919"];
+        $themes['11']['B']['eyes'] = ["#000", "#ff23fa63", "#000"];
+        $themes['11']['B']['top'] = ["#ff90f4", "#ff90f4", "#ff90f4"];
     
-        $themes['11']["C"]["env"] = ["#22535d"];
-        $themes['11']["C"]["clo"] = ["#000", "#ff2500", "#ff2500", "#fff", "#fff"];
-        $themes['11']["C"]["head"] = ["#a76c44"];
-        $themes['11']["C"]["mouth"] = ["#191919", "#191919"];
-        $themes['11']["C"]["eyes"] = ["#000", "none", "#000"];
-        $themes['11']["C"]["top"] = ["none", "#00efff", "none"];
+        $themes['11']['C']['env'] = ["#22535d"];
+        $themes['11']['C']['clo'] = ["#000", "#ff2500", "#ff2500", "#fff", "#fff"];
+        $themes['11']['C']['head'] = ["#a76c44"];
+        $themes['11']['C']['mouth'] = ["#191919", "#191919"];
+        $themes['11']['C']['eyes'] = ["#000", "none", "#000"];
+        $themes['11']['C']['top'] = ["none", "#00efff", "none"];
     
         // Blond
-        $themes['12']["A"]["env"] = ["#2668DC"];
-        $themes['12']["A"]["clo"] = ["#2385c6", "#b8d0e0", "#b8d0e0"];
-        $themes['12']["A"]["head"] = ["#ad8a60"];
-        $themes['12']["A"]["mouth"] = ["#000", "#4d4d4d"];
-        $themes['12']["A"]["eyes"] = ["#7fb5a2", "#d1eddf", "#301e19"];
-        $themes['12']["A"]["top"] = ["#fff510", "#fff510"];
+        $themes['12']['A']['env'] = ["#2668DC"];
+        $themes['12']['A']['clo'] = ["#2385c6", "#b8d0e0", "#b8d0e0"];
+        $themes['12']['A']['head'] = ["#ad8a60"];
+        $themes['12']['A']['mouth'] = ["#000", "#4d4d4d"];
+        $themes['12']['A']['eyes'] = ["#7fb5a2", "#d1eddf", "#301e19"];
+        $themes['12']['A']['top'] = ["#fff510", "#fff510"];
     
-        $themes['12']["B"]["env"] = ["#643869"];
-        $themes['12']["B"]["clo"] = ["#D67D1B", "#b8d0e0", "#b8d0e0"];
-        $themes['12']["B"]["head"] = ["#CC985A", "none0000"];
-        $themes['12']["B"]["mouth"] = ["#000", "#ececec"];
-        $themes['12']["B"]["eyes"] = ["#1f2644", "#9b97ce", "#301e19"];
-        $themes['12']["B"]["top"] = ["#00eaff", "none"];
+        $themes['12']['B']['env'] = ["#643869"];
+        $themes['12']['B']['clo'] = ["#D67D1B", "#b8d0e0", "#b8d0e0"];
+        $themes['12']['B']['head'] = ["#CC985A", "none0000"];
+        $themes['12']['B']['mouth'] = ["#000", "#ececec"];
+        $themes['12']['B']['eyes'] = ["#1f2644", "#9b97ce", "#301e19"];
+        $themes['12']['B']['top'] = ["#00eaff", "none"];
     
-        $themes['12']["C"]["env"] = ["#F599FF"];
-        $themes['12']["C"]["clo"] = ["#2823C6", "#b8d0e0", "#b8d0e0"];
-        $themes['12']["C"]["head"] = ["#C7873A"];
-        $themes['12']["C"]["mouth"] = ["#000", "#4d4d4d"];
-        $themes['12']["C"]["eyes"] = ["#581b1b", "#FF8B8B", "#000"];
-        $themes['12']["C"]["top"] = ["none", "#9c0092"];
+        $themes['12']['C']['env'] = ["#F599FF"];
+        $themes['12']['C']['clo'] = ["#2823C6", "#b8d0e0", "#b8d0e0"];
+        $themes['12']['C']['head'] = ["#C7873A"];
+        $themes['12']['C']['mouth'] = ["#000", "#4d4d4d"];
+        $themes['12']['C']['eyes'] = ["#581b1b", "#FF8B8B", "#000"];
+        $themes['12']['C']['top'] = ["none", "#9c0092"];
     
         // Ateam
-        $themes['13']["A"]["env"] = ["#d10084"];
-        $themes['13']["A"]["clo"] = ["#efedee", "#00a1e0", "#00a1e0", "#efedee", "#ffce1c"];
-        $themes['13']["A"]["head"] = ["#b35f49"];
-        $themes['13']["A"]["mouth"] = ["#3a484a", "#000"];
-        $themes['13']["A"]["eyes"] = ["#000"];
-        $themes['13']["A"]["top"] = ["#000", "none", "#000", "none"];
+        $themes['13']['A']['env'] = ["#d10084"];
+        $themes['13']['A']['clo'] = ["#efedee", "#00a1e0", "#00a1e0", "#efedee", "#ffce1c"];
+        $themes['13']['A']['head'] = ["#b35f49"];
+        $themes['13']['A']['mouth'] = ["#3a484a", "#000"];
+        $themes['13']['A']['eyes'] = ["#000"];
+        $themes['13']['A']['top'] = ["#000", "none", "#000", "none"];
     
-        $themes['13']["B"]["env"] = ["#E6C117"];
-        $themes['13']["B"]["clo"] = ["#efedee", "#ec0033", "#ec0033", "#efedee", "#f2ff05"];
-        $themes['13']["B"]["head"] = ["#ffc016"];
-        $themes['13']["B"]["mouth"] = ["#4a3737", "#000"];
-        $themes['13']["B"]["eyes"] = ["#000"];
-        $themes['13']["B"]["top"] = ["#ffe900", "#ffe900", "none", "#ffe900"];
+        $themes['13']['B']['env'] = ["#E6C117"];
+        $themes['13']['B']['clo'] = ["#efedee", "#ec0033", "#ec0033", "#efedee", "#f2ff05"];
+        $themes['13']['B']['head'] = ["#ffc016"];
+        $themes['13']['B']['mouth'] = ["#4a3737", "#000"];
+        $themes['13']['B']['eyes'] = ["#000"];
+        $themes['13']['B']['top'] = ["#ffe900", "#ffe900", "none", "#ffe900"];
     
-        $themes['13']["C"]["env"] = ["#1d8c00"];
-        $themes['13']["C"]["clo"] = ["#e000cb", "#fff", "#fff", "#e000cb", "#ffce1c"];
-        $themes['13']["C"]["head"] = ["#b96438"];
-        $themes['13']["C"]["mouth"] = ["#000", "#000"];
-        $themes['13']["C"]["eyes"] = ["#000"];
-        $themes['13']["C"]["top"] = ["#53ffff", "#53ffff", "none", "none"];
+        $themes['13']['C']['env'] = ["#1d8c00"];
+        $themes['13']['C']['clo'] = ["#e000cb", "#fff", "#fff", "#e000cb", "#ffce1c"];
+        $themes['13']['C']['head'] = ["#b96438"];
+        $themes['13']['C']['mouth'] = ["#000", "#000"];
+        $themes['13']['C']['eyes'] = ["#000"];
+        $themes['13']['C']['top'] = ["#53ffff", "#53ffff", "none", "none"];
     
         // Rasta
-        $themes['14']["A"]["env"] = ["#fc0065"];
-        $themes['14']["A"]["clo"] = ["#708913", "#fdea14", "#708913", "#fdea14", "#708913"];
-        $themes['14']["A"]["head"] = ["#DEA561"];
-        $themes['14']["A"]["mouth"] = ["#444", "#000"];
-        $themes['14']["A"]["eyes"] = ["#000"];
-        $themes['14']["A"]["top"] = ["#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f" ];
+        $themes['14']['A']['env'] = ["#fc0065"];
+        $themes['14']['A']['clo'] = ["#708913", "#fdea14", "#708913", "#fdea14", "#708913"];
+        $themes['14']['A']['head'] = ["#DEA561"];
+        $themes['14']['A']['mouth'] = ["#444", "#000"];
+        $themes['14']['A']['eyes'] = ["#000"];
+        $themes['14']['A']['top'] = ["#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f", "#32393f" ];
     
-        $themes['14']["B"]["env"] = ["#81f72e"];
-        $themes['14']["B"]["clo"] = ["#ff0000", "#ffc107", "#ff0000", "#ffc107", "#ff0000"];
-        $themes['14']["B"]["head"] = ["#ef9831"];
-        $themes['14']["B"]["mouth"] = ["#6b0000", "#000"];
-        $themes['14']["B"]["eyes"] = ["#000"];
-        $themes['14']["B"]["top"] = ["#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "none", "none", "none", "none"];
+        $themes['14']['B']['env'] = ["#81f72e"];
+        $themes['14']['B']['clo'] = ["#ff0000", "#ffc107", "#ff0000", "#ffc107", "#ff0000"];
+        $themes['14']['B']['head'] = ["#ef9831"];
+        $themes['14']['B']['mouth'] = ["#6b0000", "#000"];
+        $themes['14']['B']['eyes'] = ["#000"];
+        $themes['14']['B']['top'] = ["#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "#FFFAAD", "none", "none", "none", "none"];
     
-        $themes['14']["C"]["env"] = ["#00D872"];
-        $themes['14']["C"]["clo"] = ["#590D00", "#FD1336", "#590D00", "#FD1336", "#590D00"];
-        $themes['14']["C"]["head"] = ["#c36c00"];
-        $themes['14']["C"]["mouth"] = ["#56442b", "#000"];
-        $themes['14']["C"]["eyes"] = ["#000"];
-        $themes['14']["C"]["top"] = ["#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "none", "none", "none", "none", "none", "none", "none", "none"];
+        $themes['14']['C']['env'] = ["#00D872"];
+        $themes['14']['C']['clo'] = ["#590D00", "#FD1336", "#590D00", "#FD1336", "#590D00"];
+        $themes['14']['C']['head'] = ["#c36c00"];
+        $themes['14']['C']['mouth'] = ["#56442b", "#000"];
+        $themes['14']['C']['eyes'] = ["#000"];
+        $themes['14']['C']['top'] = ["#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "#004E4C", "none", "none", "none", "none", "none", "none", "none", "none"];
     
         // Meta
-        $themes['15']["A"]["env"] = ["#111"];
-        $themes['15']["A"]["clo"] = ["#000", "#00FFFF"];
-        $themes['15']["A"]["head"] = ["#755227"];
-        $themes['15']["A"]["mouth"] = ["#fff", "#000"];
-        $themes['15']["A"]["eyes"] = ["black", "#008a", "aqua"];
-        $themes['15']["A"]["top"] = ["#fff", "#fff", "#fff", "#fff", "#fff"];
+        $themes['15']['A']['env'] = ["#111"];
+        $themes['15']['A']['clo'] = ["#000", "#00FFFF"];
+        $themes['15']['A']['head'] = ["#755227"];
+        $themes['15']['A']['mouth'] = ["#fff", "#000"];
+        $themes['15']['A']['eyes'] = ["black", "#008a", "aqua"];
+        $themes['15']['A']['top'] = ["#fff", "#fff", "#fff", "#fff", "#fff"];
     
-        $themes['15']["B"]["env"] = ["#00D0D4"];
-        $themes['15']["B"]["clo"] = ["#000", "#fff"];
-        $themes['15']["B"]["head"] = ["#755227"];
-        $themes['15']["B"]["mouth"] = ["#fff", "#000"];
-        $themes['15']["B"]["eyes"] = ["black", "#1df7ffa3", "#fcff2c"];
-        $themes['15']["B"]["top"] = ["#fff539", "none", "#fff539", "none", "#fff539"];
+        $themes['15']['B']['env'] = ["#00D0D4"];
+        $themes['15']['B']['clo'] = ["#000", "#fff"];
+        $themes['15']['B']['head'] = ["#755227"];
+        $themes['15']['B']['mouth'] = ["#fff", "#000"];
+        $themes['15']['B']['eyes'] = ["black", "#1df7ffa3", "#fcff2c"];
+        $themes['15']['B']['top'] = ["#fff539", "none", "#fff539", "none", "#fff539"];
     
-        $themes['15']["C"]["env"] = ["#DC75FF"];
-        $themes['15']["C"]["clo"] = ["#000", "#FFBDEC"];
-        $themes['15']["C"]["head"] = ["#997549"];
-        $themes['15']["C"]["mouth"] = ["#fff", "#000"];
-        $themes['15']["C"]["eyes"] = ["black", "black", "aqua"];
-        $themes['15']["C"]["top"] = ["#00fffd", "none", "none", "none", "none"];
+        $themes['15']['C']['env'] = ["#DC75FF"];
+        $themes['15']['C']['clo'] = ["#000", "#FFBDEC"];
+        $themes['15']['C']['head'] = ["#997549"];
+        $themes['15']['C']['mouth'] = ["#fff", "#000"];
+        $themes['15']['C']['eyes'] = ["black", "black", "aqua"];
+        $themes['15']['C']['top'] = ["#00fffd", "none", "none", "none", "none"];
     
     
         // Optimization
         $sP = [];
-        $svgStart = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 231 231\">";
-        $svgEnd = "</svg>";
-        $env = "<path d=\"M33.83,33.83a115.5,115.5,0,1,1,0,163.34,115.49,115.49,0,0,1,0-163.34Z\" style=\"fill:#01;\"/>";
-        $head = "<path d=\"m115.5 51.75a63.75 63.75 0 0 0-10.5 126.63v14.09a115.5 115.5 0 0 0-53.729 19.027 115.5 115.5 0 0 0 128.46 0 115.5 115.5 0 0 0-53.729-19.029v-14.084a63.75 63.75 0 0 0 53.25-62.881 63.75 63.75 0 0 0-63.65-63.75 63.75 63.75 0 0 0-0.09961 0z\" style=\"fill:#000;\"/>";
-        $str = "stroke-linecap:round;stroke-linejoin:round;stroke-width:";
+        $svgStart = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231 231">';
+        $svgEnd = '</svg>';
+        $env = '<path d="M33.83,33.83a115.5,115.5,0,1,1,0,163.34,115.49,115.49,0,0,1,0-163.34Z" style="fill:#01;"/>';
+        $head = '<path d="m115.5 51.75a63.75 63.75 0 0 0-10.5 126.63v14.09a115.5 115.5 0 0 0-53.729 19.027 115.5 115.5 0 0 0 128.46 0 115.5 115.5 0 0 0-53.729-19.029v-14.084a63.75 63.75 0 0 0 53.25-62.881 63.75 63.75 0 0 0-63.65-63.75 63.75 63.75 0 0 0-0.09961 0z" style="fill:#000;"/>';
+        $str = 'stroke-linecap:round;stroke-linejoin:round;stroke-width:';
     
     
         // SHAPES
@@ -560,11 +559,11 @@ class Multiavatar {
     
     
         // Multiavatar algorithm
-        $hash = "";
+        $hash = '';
     
-        if (strlen($string) == 0) return $hash;
+        if (strlen($avatarId) == 0) return $hash;
     
-        $sha256Hash = hash('sha256', $string);
+        $sha256Hash = hash('sha256', $avatarId);
         $sha256Numbers = preg_replace("/[^0-9]/", "", $sha256Hash);
         $hash = substr($sha256Numbers, 0, 12);
     

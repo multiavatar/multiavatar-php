@@ -1,6 +1,6 @@
 <?php
 
-require_once('Multiavatar.php');
+require_once("Multiavatar.php");
 
 
 $avatarId = "Starcrasher";
@@ -17,6 +17,12 @@ echo($multiavatar->svgCode);
 // Generate a specific version
 $avatarId = "Pandalion";
 $multiavatar = new Multiavatar($avatarId, null, array("part" => 11, "theme" => "C"));
+echo($multiavatar->svgCode);
+
+
+// Test with integer
+$avatarId = 123456789;
+$multiavatar = new Multiavatar($avatarId, null, null);
 echo($multiavatar->svgCode);
 
 
