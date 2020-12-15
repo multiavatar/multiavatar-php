@@ -71,6 +71,17 @@ fetch('https://api.multiavatar.com/v1/'
 You can use Multiavatar for free, as long as the conditions described in the [LICENSE](https://multiavatar.com/license) are followed.
 
 
+### Screenshots ###
+
+<img src="https://multiavatar.com/press/img/screenshots/screenshot-02.png?v=001">
+
+<img src="https://multiavatar.com/press/img/screenshots/screenshot-03.png?v=001">
+
+<img src="https://multiavatar.com/press/img/screenshots/screenshot-09.png?v=001">
+
+<img src="https://multiavatar.com/press/img/screenshots/screenshot-10.png?v=001">
+
+
 ### More info ###
 
 For additional information and extended functionality, visit the [multiavatar.com](https://multiavatar.com) web-app.
