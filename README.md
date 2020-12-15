@@ -29,8 +29,8 @@ composer require multiavatar/multiavatar-php
 ### Usage ###
 
 ```
-$string = "Binx Bond";
-$multiavatar = new Multiavatar($string, null, null);
+$avatarId = "Binx Bond";
+$multiavatar = new Multiavatar($avatarId, null, null);
 echo($multiavatar->svgCode);
 ```
 
