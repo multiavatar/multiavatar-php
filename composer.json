@@ -1,0 +1,25 @@
+{
+    "name": "multiavatar/multiavatar-php",
+    "description": "Multicultural Avatar Generator",
+    "type": "library",
+    "keywords": [
+        "avatar",
+        "profile",
+        "picture",
+        "image",
+        "generator",
+        "maker",
+        "creator"
+    ],
+    "homepage": "https://multiavatar.com",
+    "license": "https://multiavatar.com/license",
+    "authors": [
+        {
+            "name": "Gie Katon",
+            "homepage": "https://giekaton.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["Multiavatar.php"]
+    }
+}
