@@ -34,13 +34,13 @@ $multiavatar = new Multiavatar($string, null, null);
 echo($multiavatar->svgCode);
 ```
 
-For advanced usage, pass boolean `false` as the second parameter if you wish to generate an avatar without the environment part.
+For advanced usage, pass boolean `true` as the second parameter if you wish to generate an avatar without the environment part.
 
 Pass an associative array as the third parameter to generate a specific avatar version.
 
 ```
 $avatarId = "ANY_STRING";
-$multiavatar = new Multiavatar($avatarId, null, array("part" => 11, "theme" => "C"));
+$multiavatar = new Multiavatar($avatarId, true, array("part" => 11, "theme" => "C"));
 echo($multiavatar->svgCode);
 ```
 
