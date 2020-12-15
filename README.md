@@ -66,6 +66,11 @@ fetch('https://api.multiavatar.com/v1/'
 ```
 
 
+### License ###
+
+You can use Multiavatar for free, as long as the conditions described in the [LICENSE](https://multiavatar.com/license) are followed.
+
+
 ### More info ###
 
 For additional information and extended functionality, visit the [multiavatar.com](https://multiavatar.com) web-app.
