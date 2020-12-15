@@ -21,9 +21,5 @@
     ],
     "autoload": {
         "classmap": ["Multiavatar.php"]
-    },
-    "require": {
-        "php": ">=5.3.0"
-    },
-    "minimum-stability": "dev"
+    }
 }
