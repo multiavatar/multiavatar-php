@@ -29,9 +29,9 @@ composer require multiavatar/multiavatar-php
 ### Usage ###
 
 ```
+$multiavatar = new Multiavatar();
 $avatarId = "Binx Bond";
-$multiavatar = new Multiavatar($avatarId, null, null);
-echo($multiavatar->svgCode);
+echo $multiavatar($avatarId);
 ```
 
 For advanced usage, pass boolean `true` as the second parameter if you wish to generate an avatar without the environment part.
@@ -39,9 +39,9 @@ For advanced usage, pass boolean `true` as the second parameter if you wish to g
 Pass an associative array as the third parameter to generate a specific avatar version.
 
 ```
+$multiavatar = new Multiavatar();
 $avatarId = "ANY_STRING";
-$multiavatar = new Multiavatar($avatarId, true, array("part" => 11, "theme" => "C"));
-echo($multiavatar->svgCode);
+echo $multiavatar($avatarId, true, ["part" => "11", "theme" => "C"]);
 ```
 
 See `index.php` for examples.
