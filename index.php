@@ -1,7 +1,5 @@
 <?php
 
-use Multiavatar\Multiavatar;
-
 require_once "Multiavatar.php";
 
 $multiAvatar = new Multiavatar();
