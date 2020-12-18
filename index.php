@@ -1,36 +1,26 @@
 <?php
 
-require_once("Multiavatar.php");
+require_once "Multiavatar.php";
 
+$multiAvatar = new Multiavatar();
 
 $avatarId = "Starcrasher";
-$multiavatar = new Multiavatar($avatarId, null, null);
-echo($multiavatar->svgCode);
-
+echo $multiAvatar($avatarId);
 
 // Without the environment part
-$avatarId = "Pandalion";
-$multiavatar = new Multiavatar($avatarId, true, null);
-echo($multiavatar->svgCode);
-
+// $avatarId = "Pandalion";
+// echo $multiAvatar($avatarId, true);
 
 // Generate a specific version
-$avatarId = "Pandalion";
-$multiavatar = new Multiavatar($avatarId, null, array("part" => 11, "theme" => "C"));
-echo($multiavatar->svgCode);
-
+// $avatarId = "Pandalion";
+// echo $multiAvatar($avatarId, false, ["part" => 11, "theme" => "C"]);
 
 // Test with integer
-$avatarId = 123456789;
-$multiavatar = new Multiavatar($avatarId, null, null);
-echo($multiavatar->svgCode);
-
+// $avatarId = 123456789;
+// echo $multiAvatar($avatarId);
 
 // $avatarId = "a86f755add37fe0b649c";
-// $multiavatar = new Multiavatar($avatarId, null, null);
-// echo($multiavatar->svgCode);
-
+// echo $multiAvatar($avatarId);
 
 // $avatarId = "f7542474d54d2d2d97e4";
-// $multiavatar = new Multiavatar($avatarId, null, null);
-// echo($multiavatar->svgCode);
+// echo $multiAvatar($avatarId);

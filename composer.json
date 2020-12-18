@@ -21,5 +21,15 @@
     ],
     "autoload": {
         "classmap": ["Multiavatar.php"]
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.63",
+        "phpstan/phpstan-strict-rules": "^0.12.7"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --level max Multiavatar.php -c phpstan.neon --ansi"
+    },
+    "scripts-descriptions": {
+        "phpstan": "Static analysis of PHP scripts"
     }
 }
