@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Multiavatar;
+
 // Multiavatar v1.0 (PHP version)
 
 // package   Multiavatar-PHP
@@ -10,15 +12,39 @@ declare(strict_types=1);
 // license   https://multiavatar.com/license
 // homepage  https://multiavatar.com
 
+use InvalidArgumentException;
+use TypeError;
+use function filter_var;
+use function hash;
+use function intdiv;
+use function is_object;
+use function is_scalar;
+use function method_exists;
+use function preg_match;
+use function preg_replace;
+use function round;
+use function sprintf;
+use function strpos;
+use function strtoupper;
+use function substr;
+use function trim;
+
 class Multiavatar
 {
     private const SVG_ROOT_OPEN_TAG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231 231">';
     private const SVG_ROOT_CLOSE_TAG = '</svg>';
-    private const SVG_ELEMENT_ENV = '<path d="M33.83,33.83a115.5,115.5,0,1,1,0,163.34,115.49,115.49,0,0,1,0-163.34Z" style="fill:#01;"/>';
+    private const SVG_ELEMENT_ENV = '<path d="M33.83,33.83a115.5,115.5,0,1,1,0,163.34,115.49,115.49,0,0,1,0-163.34Z" style="fill:#001;"/>';
     private const SVG_ELEMENT_HEAD = '<path d="m115.5 51.75a63.75 63.75 0 0 0-10.5 126.63v14.09a115.5 115.5 0 0 0-53.729 19.027 115.5 115.5 0 0 0 128.46 0 115.5 115.5 0 0 0-53.729-19.029v-14.084a63.75 63.75 0 0 0 53.25-62.881 63.75 63.75 0 0 0-63.65-63.75 63.75 63.75 0 0 0-0.09961 0z" style="fill:#000;"/>';
     private const SVG_ELEMENT_BASE_STYLE_PROPERTIES = 'stroke-linecap:round;stroke-linejoin:round;stroke-width:';
-
     private const THEME_LIST = [0 => 'A', 1 => 'B', 2 => 'C'];
+
+    public const DEFAULT_OPTIONS = [
+        'ver' => [
+            'part' => null,
+            'theme' => null,
+        ],
+        'sansEnv' => false,
+    ];
 
     /**
      * @var array<int|string, array<string, array<string, array<int, string>>>>
@@ -32,10 +58,9 @@ class Multiavatar
 
     /**
      * @param object|int|float|string $avatarId the avatar id the object must implement the __toString method
-     * @param bool                    $sansEnv  If this is true, the returns avatar is without the circle background (environment part).
-     * @param array<string,string>    $options      options to force a specific initial version, for example ['part' => '01', 'theme' => 'A']
+     * @param array                   $options
      */
-    public function __invoke($avatarId, bool $sansEnv = false, array $options = []): string
+    public function __invoke($avatarId, array $options = self::DEFAULT_OPTIONS): string
     {
         $avatarId = $this->filterAvatar($avatarId);
         $options = $this->filterOptions($options);
@@ -43,7 +68,7 @@ class Multiavatar
             return '';
         }
 
-        $svgElements = $this->partsToSvgElements($this->avatarToParts($avatarId), $sansEnv, $options);
+        $svgElements = $this->partsToElements($this->avatarToParts($avatarId), $options);
 
         return self::SVG_ROOT_OPEN_TAG
             . $svgElements['env']
@@ -72,27 +97,30 @@ class Multiavatar
     }
 
     /**
-     * @param array<string,string> $inputOptions
-     *
-     * @return array{part:string|null, theme:string|null}
+     * @return array{ver:array{part:string|null, theme:string|null}, sansEnv:bool}
      */
     private function filterOptions(array $inputOptions): array
     {
-        $options = ['part' => null, 'theme' => null];
-        if (isset($inputOptions['part'])) {
-            $part = sprintf("%'.02d", $inputOptions['part']);
+        $options = [
+            'ver' => ['part' => null, 'theme' => null],
+            'sansEnv' => filter_var($inputOptions['sansEnv'] ?? false, FILTER_VALIDATE_BOOL),
+        ];
+
+        if (isset($inputOptions['ver']['part'])) {
+            $part = sprintf("%'.02d", $inputOptions['ver']['part']);
             if (1 !== preg_match('/^(0[0-9])|(1[0-5])$/', $part)) {
                 throw new InvalidArgumentException('The submitted part does not exists.');
             }
 
-            $options['part'] = $part;
+            $options['ver']['part'] = $part;
         }
 
-        if (isset($inputOptions['theme'])) {
-            if (!in_array($inputOptions['theme'], self::THEME_LIST, true)) {
+        if (isset($inputOptions['ver']['theme'])) {
+            if (1 !== preg_match('/^([a-c])$/i', $inputOptions['ver']['theme'])) {
                 throw new InvalidArgumentException('The submitted theme does not exists.');
             }
-            $options['theme'] = $inputOptions['theme'];
+
+            $options['ver']['theme'] = strtoupper($inputOptions['ver']['theme']);
         }
 
         return $options;
@@ -121,7 +149,8 @@ class Multiavatar
     /**
      * @return array{part:string, theme:string}
      */
-    private function mapPart(string $part): array {
+    private function mapPart(string $part): array
+    {
         $part = (int) round(47 / 100 * (int) $part);
 
         return [
@@ -131,25 +160,24 @@ class Multiavatar
     }
 
     /**
-     * @param array<string, array{part:string, theme:string}> $bodyParts
-     * @param bool                                            $sansEnv
-     * @param array{part:string|null, theme:string|null}      $options
+     * @param array<string, array{part:string, theme:string}>                       $bodyParts
+     * @param array{ver: array{part:string|null, theme:string|null}, sansEnv: bool} $options
      *
      * @return array<string,string>
      */
-    private function partsToSvgElements(array $bodyParts, bool $sansEnv, array $options): array
+    private function partsToElements(array $bodyParts, array $options): array
     {
         $elements = [];
         foreach ($bodyParts as $name => $bodyPart) {
-            if ('env' === $name && $sansEnv) {
+            if ('env' === $name && $options['sansEnv']) {
                 $elements[$name] = '';
                 continue;
             }
 
             $elements[$name] = $this->generateSvgElement(
                 $name,
-                $options['part'] ?? $bodyPart['part'],
-                $options['theme'] ?? $bodyPart['theme']
+                $options['ver']['part'] ?? $bodyPart['part'],
+                $options['ver']['theme'] ?? $bodyPart['theme']
             );
         }
 
@@ -158,21 +186,18 @@ class Multiavatar
 
     private function generateSvgElement(string $name, string $part, string $theme): string
     {
-        $svgElement = self::shapes()[$part][$name];
-        $found = preg_match_all('/#(.*?)+(?=;)/', $svgElement, $result);
-        if (0 === $found || false === $found) {
-            return $svgElement;
-        }
-
+        $element = self::shapes()[$part][$name];
         $colors = self::themes()[$part][$theme][$name];
-        foreach ($result[0] as $index => $var) {
-            $pos = strpos($svgElement, $var);
-            if ($pos !== false) {
-                $svgElement = substr_replace($svgElement, $colors[$index] ?? $colors[0], $pos, strlen($var));
+        preg_match_all('/#(.*?)+(?=;)/', $element, $result);
+
+        foreach ($result[0] as $index => $initialColor) {
+            if (false !== ($pos = strpos($element, $initialColor))) {
+                $selectedColor = $colors[$index] ?? $colors[0];
+                $element = substr_replace($element, $selectedColor, $pos, strlen($initialColor));
             }
         }
 
-        return $svgElement;
+        return $element;
     }
 
     /**
@@ -519,22 +544,22 @@ class Multiavatar
         self::$themes['08']['A']['env'] = ["#0df"];
         self::$themes['08']['A']['clo'] = ["#571e57", "#ff0"];
         self::$themes['08']['A']['head'] = ["#f2c280"];
-        self::$themes['08']['A']['mouth'] = ["#795548", "#000"];
-        self::$themes['08']['A']['eyes'] = ["#ff0000"];
+        self::$themes['08']['A']['mouth'] = ["#ff0000"];
+        self::$themes['08']['A']['eyes'] = ["#795548", "#000"];
         self::$themes['08']['A']['top'] = ["#de3b00", "none"];
 
         self::$themes['08']['B']['env'] = ["#B400C2"];
         self::$themes['08']['B']['clo'] = ["#0D204A", "#00ffdf"];
         self::$themes['08']['B']['head'] = ["#ca8628"];
-        self::$themes['08']['B']['mouth'] = ["#cbbdaf", "#000"];
-        self::$themes['08']['B']['eyes'] = ["#1a1a1a"];
+        self::$themes['08']['B']['mouth'] = ["#1a1a1a"];
+        self::$themes['08']['B']['eyes'] = ["#cbbdaf", "#000"];
         self::$themes['08']['B']['top'] = ["#000", "#000"];
 
         self::$themes['08']['C']['env'] = ["#ffe926"];
         self::$themes['08']['C']['clo'] = ["#00d6af", "#000"];
         self::$themes['08']['C']['head'] = ["#8c5100"];
-        self::$themes['08']['C']['mouth'] = ["none", "#000"];
-        self::$themes['08']['C']['eyes'] = ["#7d0000"];
+        self::$themes['08']['C']['mouth'] = ["#7d0000"];
+        self::$themes['08']['C']['eyes'] = ["none", "#000"];
         self::$themes['08']['C']['top'] = ["#f7f7f7", "none"];
 
         // Normie female
