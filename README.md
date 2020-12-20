@@ -13,10 +13,10 @@ For more details about the Multiavatar Generator, please refer to the readme ava
 
 ### Installation ###
 
-If you don't use composer, just include `Multiavatar.php` in your application.
+If you don't use composer, just include the autoloader in the root of the directory in your application.
 
 ```
-require_once('Multiavatar.php');
+require_once '/path/to/directory/Multiavatar/autoload.php';
 ```
 
 Via Composer:

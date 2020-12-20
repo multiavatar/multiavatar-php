@@ -7,9 +7,6 @@ namespace Multiavatar;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use TypeError;
-use function file_get_contents;
-use function range;
-use function sprintf;
 
 final class MultiavatarTest extends TestCase
 {
