@@ -20,16 +20,27 @@
         }
     ],
     "autoload": {
-        "classmap": ["Multiavatar.php"]
+        "psr-4": {
+            "Multiavatar\\": "src/"
+        }
     },
     "require-dev": {
+        "php": ">=7.1",
+        "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^0.12.63",
-        "phpstan/phpstan-strict-rules": "^0.12.7"
+        "phpstan/phpstan-strict-rules": "^0.12.7",
+        "phpstan/phpstan-phpunit": "^0.12.17"
     },
     "scripts": {
-        "phpstan": "phpstan analyse --level max Multiavatar.php -c phpstan.neon --ansi"
+        "phpstan": "phpstan analyse src -c phpstan.neon --ansi",
+        "phpunit": "phpunit --coverage-text",
+        "test": [
+            "@phpunit",
+            "@phpstan"
+        ]
     },
     "scripts-descriptions": {
-        "phpstan": "Static analysis of PHP scripts"
+        "phpstan": "Static analysis of PHP scripts",
+        "phpunit": "Runs unit and functional testing"
     }
 }
