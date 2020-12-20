@@ -28,6 +28,7 @@ use function strpos;
 use function strtoupper;
 use function substr;
 use function trim;
+use const FILTER_VALIDATE_BOOLEAN;
 
 class Multiavatar
 {
@@ -103,7 +104,7 @@ class Multiavatar
     {
         $options = [
             'ver' => ['part' => null, 'theme' => null],
-            'sansEnv' => filter_var($inputOptions['sansEnv'] ?? false, FILTER_VALIDATE_BOOL),
+            'sansEnv' => filter_var($inputOptions['sansEnv'] ?? false, FILTER_VALIDATE_BOOLEAN),
         ];
 
         if (isset($inputOptions['ver']['part'])) {
