@@ -16,7 +16,13 @@ echo($multiavatar->svgCode);
 
 // Generate a specific version
 $avatarId = "Pandalion";
-$multiavatar = new Multiavatar($avatarId, null, array("part" => 11, "theme" => "C"));
+$multiavatar = new Multiavatar($avatarId, null, array("part" => "11", "theme" => "C"));
+echo($multiavatar->svgCode);
+
+
+// Generate a specific version
+$avatarId = "Pandalion";
+$multiavatar = new Multiavatar($avatarId, null, array("part" => "08", "theme" => "C"));
 echo($multiavatar->svgCode);
 
 

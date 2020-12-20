@@ -40,7 +40,7 @@ Pass an associative array as the third parameter to generate a specific avatar v
 
 ```
 $avatarId = "ANY_STRING";
-$multiavatar = new Multiavatar($avatarId, true, array("part" => 11, "theme" => "C"));
+$multiavatar = new Multiavatar($avatarId, true, array("part" => "11", "theme" => "C"));
 echo($multiavatar->svgCode);
 ```
 

@@ -230,22 +230,22 @@ class Multiavatar {
         $themes['08']['A']['env'] = ["#0df"];
         $themes['08']['A']['clo'] = ["#571e57", "#ff0"];
         $themes['08']['A']['head'] = ["#f2c280"];
-        $themes['08']['A']['mouth'] = ["#795548", "#000"];
-        $themes['08']['A']['eyes'] = ["#ff0000"];
+        $themes['08']['A']['mouth'] = ["#ff0000"];
+        $themes['08']['A']['eyes'] = ["#795548", "#000"];
         $themes['08']['A']['top'] = ["#de3b00", "none"];
     
         $themes['08']['B']['env'] = ["#B400C2"];
         $themes['08']['B']['clo'] = ["#0D204A", "#00ffdf"];
         $themes['08']['B']['head'] = ["#ca8628"];
-        $themes['08']['B']['mouth'] = ["#cbbdaf", "#000"];
-        $themes['08']['B']['eyes'] = ["#1a1a1a"];
+        $themes['08']['B']['mouth'] = ["#1a1a1a"];
+        $themes['08']['B']['eyes'] = ["#cbbdaf", "#000"];
         $themes['08']['B']['top'] = ["#000", "#000"];
     
         $themes['08']['C']['env'] = ["#ffe926"];
         $themes['08']['C']['clo'] = ["#00d6af", "#000"];
         $themes['08']['C']['head'] = ["#8c5100"];
-        $themes['08']['C']['mouth'] = ["none", "#000"];
-        $themes['08']['C']['eyes'] = ["#7d0000"];
+        $themes['08']['C']['mouth'] = ["#7d0000"];
+        $themes['08']['C']['eyes'] = ["none", "#000"];
         $themes['08']['C']['top'] = ["#f7f7f7", "none"];
     
         // Normie female
