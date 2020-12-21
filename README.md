@@ -106,6 +106,19 @@ $avatarId = "f7542474d54d2d2d97e4";
 echo $multiavatar($avatarId);
 ```
 
+### Testing ###
+
+The library has a :
+
+- a [PHPUnit](https://phpunit.de) test suite
+- a code analysis compliance test suite using [PHPStan](https://phpstan.org).
+
+To run the tests, run the following command from the project folder.
+
+``` bash
+$ composer test
+```
+
 ### API ###
 
 This PHP script is powering the [Multiavatar API](https://api.multiavatar.com). Simply pass the avatar's ID as the URL parameter, and the API will return the avatar's SVG code.
