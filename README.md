@@ -10,7 +10,6 @@ Initially coded in JavaScript, this version of Multiavatar is re-created in PHP.
 
 For more details about the Multiavatar Generator, please refer to the readme available in the JS [repository](https://github.com/multiavatar/Multiavatar).
 
-
 ### Installation ###
 
 If you don't use composer, just include the autoloader in the root of the directory in your application.
@@ -25,10 +24,11 @@ Via Composer:
 composer require multiavatar/multiavatar-php
 ```
 
-
 ### Usage ###
 
-```
+```php
+<?php
+
 use Multiavatar\Multiavatar;
 
 $multiavatar = new Multiavatar();
@@ -36,19 +36,75 @@ $avatarId = "Binx Bond";
 echo $multiavatar($avatarId);
 ```
 
-For advanced usage, pass boolean `true` as the second parameter if you wish to generate an avatar without the environment part.
+For advanced usage, you can pass an array as a second and last parameter as shown below:
 
-Pass an associative array as the third parameter to generate a specific avatar version.
+```php
+<?php
 
-```
 use Multiavatar\Multiavatar;
 
 $multiavatar = new Multiavatar();
 $avatarId = "ANY_STRING_OR_INT";
-echo $multiavatar($avatarId, ['ver' => ['part' => '11', 'theme' => 'C'], 'sansEnv' => true]);
-```
+$options = [
+    'ver' => [
+        'part' => '11', 
+        'theme' => 'C',
+    ], 
+    'sansEnv' => true,
+];
 
-See `index.php` for examples.
+echo $multiavatar($avatarId, $options);
+```
+The option array contains the following indexes:
+
+- `sansEnv`: Tells whether the environment should be display or not. By default, the environment is display.  
+  To remove the environment you should set the value to `true.
+  
+- `version`: Indicate which theme and shape should be used to generate the avatar.  
+  There is 3 themes that you specify with the `theme` index named from `A` to `C`
+  and 16 shapes specified with the `part` index whose named ranged from `00` to `15`.
+  
+Each of those values can be set independently of each other.
+
+```php
+<?php
+
+use Multiavatar\Multiavatar;
+
+$multiavatar = new Multiavatar();
+
+// Default usage
+// The shape will be selected from the $avatarId
+// The theme will be selected from the avatarId
+// The environment is shown
+$avatarId = "Starcrasher";
+echo $multiavatar($avatarId);
+
+// The shape will be selected from the $avatarId
+// The theme will be selected from the avatarId
+// Without the environment part
+$avatarId = "Pandalion";
+echo $multiavatar($avatarId, ['sansEnv' => true]);
+
+// Generate a specific version
+// version shape can be express in integer or in string containing only numbers. 
+$avatarId = "Pandalion";
+echo $multiavatar($avatarId, ['sansEnv' => false, 'ver' => ['part' => 11, 'theme' => 'C']]);
+
+// The avatarId can be a string or an integer
+// version theme are case insensitive. 
+// The shape will be selected from the $avatarId
+$avatarId = 123456789;
+echo $multiavatar($avatarId, ['sansEnv' => false, 'ver' => ['theme' => 'b']]);
+
+// Test with a specific shape
+// The theme will be selected from the avatarId
+$avatarId = "a86f755add37fe0b649c";
+echo $multiavatar($avatarId, ['ver' => ['part' => '08']]);
+
+$avatarId = "f7542474d54d2d2d97e4";
+echo $multiavatar($avatarId);
+```
 
 ### API ###
 
@@ -67,7 +123,6 @@ fetch('https://api.multiavatar.com/v1/'
   .then(res => res.text())
   .then(svg => console.log(svg))
 ```
-
 
 ### License ###
 
