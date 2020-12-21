@@ -60,8 +60,8 @@ class Multiavatar
     private static $shapes = [];
 
     /**
-     * @param object|int|float|string $avatarId the avatar id the object must implement the __toString method
-     * @param array                   $options
+     * @param mixed $avatarId the avatar id if it is an object it must implement the __toString method
+     * @param array $options
      */
     public function __invoke($avatarId, array $options = self::DEFAULT_OPTIONS): string
     {
@@ -84,7 +84,7 @@ class Multiavatar
     }
 
     /**
-     * @param object|string|float|int $avatarId
+     * @param mixed $avatarId the avatar Id
      */
     private function filterAvatar($avatarId): string
     {
@@ -104,11 +104,10 @@ class Multiavatar
      */
     private function filterOptions(array $inputOptions): array
     {
-        $inputOptions = $inputOptions + self::DEFAULT_OPTIONS;
         $options = self::DEFAULT_OPTIONS;
-        $options['sansEnv'] = filter_var($inputOptions['sansEnv'], FILTER_VALIDATE_BOOLEAN);
+        $options['sansEnv'] = filter_var($inputOptions['sansEnv'] ?? false, FILTER_VALIDATE_BOOLEAN);
 
-        if (null !== $inputOptions['ver']['part']) {
+        if (isset($inputOptions['ver']['part'])) {
             $part = sprintf("%'.02d", $inputOptions['ver']['part']);
             if (1 !== preg_match('/^(0[0-9])|(1[0-5])$/', $part)) {
                 throw new InvalidArgumentException('The submitted part does not exists; expecting a value between `00` and `15`.');
@@ -117,7 +116,7 @@ class Multiavatar
             $options['ver']['part'] = $part;
         }
 
-        if (null === $inputOptions['ver']['theme']) {
+        if (!isset($inputOptions['ver']['theme'])) {
             return $options;
         }
 
