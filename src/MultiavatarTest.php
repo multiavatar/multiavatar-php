@@ -61,10 +61,21 @@ final class MultiavatarTest extends TestCase
     /** @test */
     public function it_will_return_the_same_svg_with_a_case_insensitive_theme(): void
     {
-        $svgLowerTheme = ($this->multiavatar)('foobar', ['ver' => ['theme' => 'a']]);
-        $svgUpperTheme = ($this->multiavatar)('foobar', ['ver' => ['theme' => 'A']]);
+        $svgLowerTheme = ($this->multiavatar)('foobar', ['ver' => ['theme' => 'A']]);
+        $svgUpperTheme = ($this->multiavatar)('foobar', ['ver' => ['theme' => 'a']]);
 
         self::assertSame($svgLowerTheme, $svgUpperTheme);
+    }
+
+    /** @test */
+    public function it_will_return_the_same_svg_if_the_ver_is_fully_setting_independently_of_the_avatar_id_value(): void
+    {
+        $options = ['ver' => ['theme' => 'A', 'part' => 3]];
+
+        $svgWithFixedVer1 = ($this->multiavatar)('first-avatar', $options);
+        $svgWithFixedVer2 = ($this->multiavatar)('second-avatar', $options);
+
+        self::assertSame($svgWithFixedVer1, $svgWithFixedVer2);
     }
 
     /** @test */
@@ -96,6 +107,15 @@ final class MultiavatarTest extends TestCase
         $svgSansEnvTrue = ($this->multiavatar)('foobar', ['sansEnv' => true]);
 
         self::assertNotSame($svgSansEnvFalse, $svgSansEnvTrue);
+    }
+
+    /** @test */
+    public function it_will_return_the_same_svg_with_avatar_id_numeric_or_string(): void
+    {
+        $svgAvatarIdIsString = ($this->multiavatar)('1234567890');
+        $svgAvatarIdIsNumeric = ($this->multiavatar)(1234567890);
+
+        self::assertSame($svgAvatarIdIsNumeric, $svgAvatarIdIsString);
     }
 
     /**
