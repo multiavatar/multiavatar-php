@@ -15,6 +15,8 @@ namespace Multiavatar;
 use InvalidArgumentException;
 use TypeError;
 use function filter_var;
+use function get_class;
+use function gettype;
 use function hash;
 use function intdiv;
 use function is_object;
@@ -22,9 +24,9 @@ use function is_scalar;
 use function method_exists;
 use function preg_match;
 use function preg_replace;
+use function preg_replace_callback;
 use function round;
 use function sprintf;
-use function strpos;
 use function strtoupper;
 use function substr;
 use function trim;
@@ -41,10 +43,10 @@ class Multiavatar
 
     public const DEFAULT_OPTIONS = [
         'ver' => [
-            'part' => null,
-            'theme' => null,
+            'part' => null,  // string|int - the version part between '00' and '15'
+            'theme' => null, // string     - the version theme to choose between 'A' and 'C'
         ],
-        'sansEnv' => false,
+        'sansEnv' => false,  // boolean   - Tells whether to display or not the environment (by default the environment is shown)
     ];
 
     /**
@@ -91,7 +93,7 @@ class Multiavatar
         }
 
         if (!is_scalar($avatarId)) {
-            throw new TypeError('Expected a scalar or a Stringable object; got: ' . gettype($avatarId));
+            throw new TypeError('Expected a scalar or a Stringable object; got: ' . (is_object($avatarId) ? get_class($avatarId) : gettype($avatarId)));
         }
 
         return trim((string) $avatarId);
@@ -102,27 +104,28 @@ class Multiavatar
      */
     private function filterOptions(array $inputOptions): array
     {
-        $options = [
-            'ver' => ['part' => null, 'theme' => null],
-            'sansEnv' => filter_var($inputOptions['sansEnv'] ?? false, FILTER_VALIDATE_BOOLEAN),
-        ];
+        $inputOptions = $inputOptions + self::DEFAULT_OPTIONS;
+        $options = self::DEFAULT_OPTIONS;
+        $options['sansEnv'] = filter_var($inputOptions['sansEnv'], FILTER_VALIDATE_BOOLEAN);
 
-        if (isset($inputOptions['ver']['part'])) {
+        if (null !== $inputOptions['ver']['part']) {
             $part = sprintf("%'.02d", $inputOptions['ver']['part']);
             if (1 !== preg_match('/^(0[0-9])|(1[0-5])$/', $part)) {
-                throw new InvalidArgumentException('The submitted part does not exists.');
+                throw new InvalidArgumentException('The submitted part does not exists; expecting a value between `00` and `15`.');
             }
 
             $options['ver']['part'] = $part;
         }
 
-        if (isset($inputOptions['ver']['theme'])) {
-            if (1 !== preg_match('/^([a-c])$/i', $inputOptions['ver']['theme'])) {
-                throw new InvalidArgumentException('The submitted theme does not exists.');
-            }
-
-            $options['ver']['theme'] = strtoupper($inputOptions['ver']['theme']);
+        if (null === $inputOptions['ver']['theme']) {
+            return $options;
         }
+
+        if (1 !== preg_match('/^([a-c])$/i', $inputOptions['ver']['theme'])) {
+            throw new InvalidArgumentException('The submitted theme does not exists; expecting a value between `A`, `B` and `C`.');
+        }
+
+        $options['ver']['theme'] = strtoupper($inputOptions['ver']['theme']);
 
         return $options;
     }
@@ -187,16 +190,17 @@ class Multiavatar
 
     private function generateSvgElement(string $name, string $part, string $theme): string
     {
-        $element = self::shapes()[$part][$name];
         $colors = self::themes()[$part][$theme][$name];
-        preg_match_all('/#(.*?)+(?=;)/', $element, $result);
+        $index = 0;
+        $replace = function (array $result) use ($colors, &$index): string {
+            $selectedColor = $colors[$index];
+            ++$index;
 
-        foreach ($result[0] as $index => $initialColor) {
-            if (false !== ($pos = strpos($element, $initialColor))) {
-                $selectedColor = $colors[$index] ?? $colors[0];
-                $element = substr_replace($element, $selectedColor, $pos, strlen($initialColor));
-            }
-        }
+            return $selectedColor;
+        };
+
+        /** @var string $element */
+        $element = preg_replace_callback('/#(.*?)+(?=;)/', $replace, self::shapes()[$part][$name]);
 
         return $element;
     }
@@ -480,7 +484,7 @@ class Multiavatar
         self::$themes['05']['A']['clo'] = ["#c7d4e2", "#435363", "#435363", "#141720", "#141720", "#e7ecf2", "#e7ecf2"];
         self::$themes['05']['A']['head'] = ["#f5d4a6"];
         self::$themes['05']['A']['mouth'] = ["#000", "#cf9f76"];
-        self::$themes['05']['A']['eyes'] = ["#000", "#000", "#000", "#000", "#000", "#000", "#fff", "#fff", "#fff", "#fff", "#000", "#000"];
+        self::$themes['05']['A']['eyes'] = ["#000", "#000", "#000", "#000", "#000", "#000", "#000", "#000", "#fff", "#fff", "#fff", "#fff"];
         self::$themes['05']['A']['top'] = ["none", "#fdff00"];
 
         self::$themes['05']['B']['env'] = ["#b3003e"];
@@ -575,14 +579,14 @@ class Multiavatar
         self::$themes['09']['B']['clo'] = ["#033c58", "#fff", "#fff"];
         self::$themes['09']['B']['head'] = ["#dbc97f"];
         self::$themes['09']['B']['mouth'] = ["#000"];
-        self::$themes['09']['B']['eyes'] = ["none", "#fff", "#000"];
+        self::$themes['09']['B']['eyes'] = ["none", "#000", "#fff"];
         self::$themes['09']['B']['top'] = ["#FFEB3B", "#FFEB3B", "none", "#FFEB3B"];
 
         self::$themes['09']['C']['env'] = ["#FF9800"];
         self::$themes['09']['C']['clo'] = ["#b40000", "#fff", "#fff"];
         self::$themes['09']['C']['head'] = ["#E2AF6B"];
         self::$themes['09']['C']['mouth'] = ["#000"];
-        self::$themes['09']['C']['eyes'] = ["none", "#fff", "#000"];
+        self::$themes['09']['C']['eyes'] = ["none", "#000", "#fff"];
         self::$themes['09']['C']['top'] = ["#ec0000", "#ec0000", "none", "none"];
 
         // Older

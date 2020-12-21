@@ -24,7 +24,7 @@ final class MultiavatarTest extends TestCase
     public function it_will_throw_if_the_ver_part_is_not_valid(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The submitted part does not exists.');
+        $this->expectExceptionMessage('The submitted part does not exists; expecting a value between `00` and `15`');
 
         ($this->multiavatar)('foobar', ['ver' => ['part' => 16]]);
     }
@@ -33,7 +33,7 @@ final class MultiavatarTest extends TestCase
     public function it_will_throw_if_the_ver_theme_is_not_valid(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The submitted theme does not exists.');
+        $this->expectExceptionMessage('The submitted theme does not exists; expecting a value between `A`, `B` and `C`.');
 
         ($this->multiavatar)('foobar', ['ver' => ['theme' => 'D']]);
     }
@@ -42,7 +42,7 @@ final class MultiavatarTest extends TestCase
     public function it_will_throw_if_the_avatar_type_is_not_valid(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Expected a scalar or a Stringable object; got: object');
+        $this->expectExceptionMessage('Expected a scalar or a Stringable object; got: stdClass');
 
         ($this->multiavatar)(new \stdClass());
     }
@@ -51,11 +51,11 @@ final class MultiavatarTest extends TestCase
     public function it_will_return_the_same_svg_with_a_numeric_or_string_part(): void
     {
         $svgNumericPart = ($this->multiavatar)('foobar', ['ver' => ['part' => 5]]);
-        $svgString1Part = ($this->multiavatar)('foobar', ['ver' => ['part' => '05']]);
-        $svgString2Part = ($this->multiavatar)('foobar', ['ver' => ['part' => '5']]);
+        $svgNumericStringWithLeadingZeroPart = ($this->multiavatar)('foobar', ['ver' => ['part' => '0005']]);
+        $svgNumericStringPart = ($this->multiavatar)('foobar', ['ver' => ['part' => '5']]);
 
-        self::assertSame($svgNumericPart, $svgString1Part);
-        self::assertSame($svgNumericPart, $svgString2Part);
+        self::assertSame($svgNumericPart, $svgNumericStringWithLeadingZeroPart);
+        self::assertSame($svgNumericPart, $svgNumericStringPart);
     }
 
     /** @test */
@@ -70,23 +70,23 @@ final class MultiavatarTest extends TestCase
     /** @test */
     public function it_will_return_the_same_svg_with_sans_env_truthy_values(): void
     {
-        $svgSansEnvTrue = ($this->multiavatar)('foobar', ['sansEnv' => true]);
-        $svgSansEnvOne = ($this->multiavatar)('foobar', ['sansEnv' => 1]);
-        $svgSansEnvYes = ($this->multiavatar)('foobar', ['sansEnv' => 'yes']);
+        $svgSansEnvTrueBoolean = ($this->multiavatar)('foobar', ['sansEnv' => true]);
+        $svgSansEnvTruthyNumeric = ($this->multiavatar)('foobar', ['sansEnv' => 1]);
+        $svgSansEnvTruthyString = ($this->multiavatar)('foobar', ['sansEnv' => 'yes']);
 
-        self::assertSame($svgSansEnvTrue, $svgSansEnvOne);
-        self::assertSame($svgSansEnvTrue, $svgSansEnvYes);
+        self::assertSame($svgSansEnvTrueBoolean, $svgSansEnvTruthyNumeric);
+        self::assertSame($svgSansEnvTrueBoolean, $svgSansEnvTruthyString);
     }
 
     /** @test */
     public function it_will_return_the_same_svg_with_sans_env_falsy_values(): void
     {
-        $svgSansEnvFalse = ($this->multiavatar)('foobar', ['sansEnv' => false]);
+        $svgSansEnvFalseBoolean = ($this->multiavatar)('foobar', ['sansEnv' => false]);
         $svgSansEnvWrongValueIsFalse = ($this->multiavatar)('foobar', ['sansEnv' => 'fdsdf']);
         $svgSansEnvNullValue = ($this->multiavatar)('foobar', ['sansEnv' => null]);
 
-        self::assertSame($svgSansEnvFalse, $svgSansEnvNullValue);
-        self::assertSame($svgSansEnvFalse, $svgSansEnvWrongValueIsFalse);
+        self::assertSame($svgSansEnvFalseBoolean, $svgSansEnvNullValue);
+        self::assertSame($svgSansEnvFalseBoolean, $svgSansEnvWrongValueIsFalse);
     }
 
     /** @test */
@@ -113,7 +113,7 @@ final class MultiavatarTest extends TestCase
      */
     public function getEmptySvgProvider(): iterable
     {
-        yield 'avatar is an empty string' => ['avatarId' => '',];
+        yield 'avatar is an empty string' => ['avatarId' => ''];
         yield 'avatar is an empty string after being trimmed' => ['avatarId' => '      '];
         yield 'avatar can be a stringable object' => [
             'avatarId' => new class {
