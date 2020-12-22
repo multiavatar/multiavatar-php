@@ -171,31 +171,29 @@ class Multiavatar
     private function partsToElements(array $bodyParts, array $options): array
     {
         $elements = [];
-        foreach ($bodyParts as $name => $bodyPart) {
-            if ('env' === $name && $options['sansEnv']) {
-                $elements[$name] = '';
-                continue;
-            }
-
-            $elements[$name] = $this->generateSvgElement(
-                $name,
-                $options['ver']['part'] ?? $bodyPart['part'],
-                $options['ver']['theme'] ?? $bodyPart['theme']
-            );
+        foreach ($bodyParts as $index => $settings) {
+            $elements[$index] = $this->mapElement($index, $settings, $options);
         }
 
         return $elements;
     }
 
-    private function generateSvgElement(string $name, string $part, string $theme): string
+    /**
+     * @param array{part:string, theme:string}                                      $settings
+     * @param array{ver: array{part:string|null, theme:string|null}, sansEnv: bool} $options
+     */
+    private function mapElement(string $name, array $settings, array $options): string
     {
+        if ('env' === $name && $options['sansEnv']) {
+            return '';
+        }
+
+        $part = $options['ver']['part'] ?? $settings['part'];
+        $theme = $options['ver']['theme'] ?? $settings['theme'];
         $colors = self::themes()[$part][$theme][$name];
         $index = 0;
         $replace = function (array $result) use ($colors, &$index): string {
-            $selectedColor = $colors[$index];
-            ++$index;
-
-            return $selectedColor;
+            return $colors[$index++];
         };
 
         /** @var string $element */
