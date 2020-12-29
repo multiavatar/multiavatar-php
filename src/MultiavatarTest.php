@@ -24,16 +24,34 @@ final class MultiavatarTest extends TestCase
     public function it_will_throw_if_the_ver_part_is_not_valid(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The submitted part does not exists; expecting a value between `00` and `15`');
+        $this->expectExceptionMessage('The version part does not exists; expecting a value between `00` and `15`');
 
         ($this->multiavatar)('foobar', ['ver' => ['part' => 16]]);
+    }
+
+    /** @test */
+    public function it_will_throw_if_the_ver_part_is_not_a_valid_type(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The version part is expected to be a scalar; array was given.');
+
+        ($this->multiavatar)('foobar', ['ver' => ['part' => []]]);
+    }
+
+    /** @test */
+    public function it_will_throw_if_the_ver_theme_is_not_a_supported_type(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The version theme is expected to be a string; object was given.');
+
+        ($this->multiavatar)('foobar', ['ver' => ['theme' => new \stdClass()]]);
     }
 
     /** @test */
     public function it_will_throw_if_the_ver_theme_is_not_valid(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The submitted theme does not exists; expecting a value between `A`, `B` and `C`.');
+        $this->expectExceptionMessage('The version theme does not exists; expecting a value between `A`, `B` and `C`.');
 
         ($this->multiavatar)('foobar', ['ver' => ['theme' => 'D']]);
     }

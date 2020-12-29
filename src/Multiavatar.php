@@ -14,11 +14,16 @@ namespace Multiavatar;
 
 use InvalidArgumentException;
 use TypeError;
+use function array_combine;
+use function array_fill_keys;
+use function array_map;
+use function array_reduce;
 use function filter_var;
 use function get_class;
 use function gettype;
 use function hash;
 use function intdiv;
+use function is_numeric;
 use function is_object;
 use function is_scalar;
 use function method_exists;
@@ -27,6 +32,7 @@ use function preg_replace;
 use function preg_replace_callback;
 use function round;
 use function sprintf;
+use function str_split;
 use function strtoupper;
 use function substr;
 use function trim;
@@ -40,6 +46,7 @@ class Multiavatar
     private const SVG_ELEMENT_HEAD = '<path d="m115.5 51.75a63.75 63.75 0 0 0-10.5 126.63v14.09a115.5 115.5 0 0 0-53.729 19.027 115.5 115.5 0 0 0 128.46 0 115.5 115.5 0 0 0-53.729-19.029v-14.084a63.75 63.75 0 0 0 53.25-62.881 63.75 63.75 0 0 0-63.65-63.75 63.75 63.75 0 0 0-0.09961 0z" style="fill:#000;"/>';
     private const SVG_ELEMENT_BASE_STYLE_PROPERTIES = 'stroke-linecap:round;stroke-linejoin:round;stroke-width:';
     private const THEME_LIST = [0 => 'A', 1 => 'B', 2 => 'C'];
+    private const BODY_PARTS = ['env', 'head', 'clo', 'top', 'eyes', 'mouth'];
 
     public const DEFAULT_OPTIONS = [
         'ver' => [
@@ -71,15 +78,17 @@ class Multiavatar
             return '';
         }
 
-        $svgElements = $this->partsToElements($this->avatarToParts($avatarId), $options);
+        $parts = $this->setParts($avatarId, $options);
+        $elements = $this->partsToElements($parts);
+        $elements = $this->filterElements($elements, $options);
 
         return self::SVG_ROOT_OPEN_TAG
-            . $svgElements['env']
-            . $svgElements['head']
-            . $svgElements['clo']
-            . $svgElements['top']
-            . $svgElements['eyes']
-            . $svgElements['mouth']
+            . $elements['env']
+            . $elements['head']
+            . $elements['clo']
+            . $elements['top']
+            . $elements['eyes']
+            . $elements['mouth']
             . self::SVG_ROOT_CLOSE_TAG;
     }
 
@@ -108,9 +117,13 @@ class Multiavatar
         $options['sansEnv'] = filter_var($inputOptions['sansEnv'] ?? false, FILTER_VALIDATE_BOOLEAN);
 
         if (isset($inputOptions['ver']['part'])) {
+            if (!is_string($inputOptions['ver']['part']) && !is_numeric($inputOptions['ver']['part'])) {
+                throw new InvalidArgumentException('The version part is expected to be a scalar; '.gettype($inputOptions['ver']['part']).' was given.');
+            }
+
             $part = sprintf("%'.02d", $inputOptions['ver']['part']);
             if (1 !== preg_match('/^(0[0-9])|(1[0-5])$/', $part)) {
-                throw new InvalidArgumentException('The submitted part does not exists; expecting a value between `00` and `15`.');
+                throw new InvalidArgumentException('The version part does not exists; expecting a value between `00` and `15`.');
             }
 
             $options['ver']['part'] = $part;
@@ -120,8 +133,12 @@ class Multiavatar
             return $options;
         }
 
-        if (1 !== preg_match('/^([a-c])$/i', $inputOptions['ver']['theme'])) {
-            throw new InvalidArgumentException('The submitted theme does not exists; expecting a value between `A`, `B` and `C`.');
+        if (!is_string($inputOptions['ver']['theme'])) {
+            throw new InvalidArgumentException('The version theme is expected to be a string; '.gettype($inputOptions['ver']['theme']).' was given.');
+        }
+
+        if (1 !== preg_match('/^[a-c]$/i', $inputOptions['ver']['theme'])) {
+            throw new InvalidArgumentException('The version theme does not exists; expecting a value between `A`, `B` and `C`.');
         }
 
         $options['ver']['theme'] = strtoupper($inputOptions['ver']['theme']);
@@ -130,29 +147,54 @@ class Multiavatar
     }
 
     /**
-     * @return array<string,array{part:string,theme:string}>
+     * @param array{ver:array{part:string|null, theme:string|null}, sansEnv:bool} $options
+     *
+     * @return array{env:array{part:string, theme:string}, clo:array{part:string, theme:string}, head:array{part:string, theme:string}, mouth:array{part:string, theme:string}, eyes:array{part:string, theme:string}, top:array{part:string, theme:string}}
      */
-    private function avatarToParts(string $avatarId): array
+    private function setParts(string $avatarId, array $options): array
     {
-        /** @var string $str */
-        $str = preg_replace("/\D/", "", hash('sha256', $avatarId));
+        if (isset($options['ver']['theme'], $options['ver']['part'])) {
+            return array_fill_keys(self::BODY_PARTS, $options['ver']);
+        }
 
+        /** @var string $str */
+        $str = preg_replace('/\D/', '', hash('sha256', $avatarId));
         $hash = substr($str, 0, 12);
 
-        return array_map([$this, 'mapPart'], [
-            'env' => $hash[0] . $hash[1],
-            'clo' => $hash[2] . $hash[3],
-            'head' => $hash[4] . $hash[5],
-            'mouth' => $hash[6] . $hash[7],
-            'eyes' => $hash[8] . $hash[9],
-            'top' => $hash[10] . $hash[11],
-        ]);
+        /** @var array{env:array{part:string, theme:string}, clo:array{part:string, theme:string}, head:array{part:string, theme:string}, mouth:array{part:string, theme:string}, eyes:array{part:string, theme:string}, top:array{part:string, theme:string}} $parts */
+        $parts = array_combine(self::BODY_PARTS, array_map([$this, 'stringToVersion'], str_split($hash, 2)));
+
+        if (isset($options['ver']['theme'])) {
+            $theme = $options['ver']['theme'];
+
+            /** @var array{env:array{part:string, theme:string}, clo:array{part:string, theme:string}, head:array{part:string, theme:string}, mouth:array{part:string, theme:string}, eyes:array{part:string, theme:string}, top:array{part:string, theme:string}} $parts */
+            $parts = array_map(function (array $settings) use ($theme): array {
+                $settings['theme'] = $theme;
+
+                return $settings;
+            }, $parts);
+
+            return $parts;
+        }
+
+        if (isset($options['ver']['part'])) {
+            $part = $options['ver']['part'];
+
+            /** @var array{env:array{part:string, theme:string}, clo:array{part:string, theme:string}, head:array{part:string, theme:string}, mouth:array{part:string, theme:string}, eyes:array{part:string, theme:string}, top:array{part:string, theme:string}} $parts */
+            $parts = array_map(function (array $settings) use ($part): array {
+                $settings['part'] = $part;
+
+                return $settings;
+            }, $parts);
+        }
+
+        return $parts;
     }
 
     /**
      * @return array{part:string, theme:string}
      */
-    private function mapPart(string $part): array
+    private function stringToVersion(string $part): array
     {
         $part = (int) round(47 / 100 * (int) $part);
 
@@ -163,33 +205,26 @@ class Multiavatar
     }
 
     /**
-     * @param array<string, array{part:string, theme:string}>                       $bodyParts
-     * @param array{ver: array{part:string|null, theme:string|null}, sansEnv: bool} $options
+     * @param array{env:array{part:string, theme:string}, clo:array{part:string, theme:string}, head:array{part:string, theme:string}, mouth:array{part:string, theme:string}, eyes:array{part:string, theme:string}, top:array{part:string, theme:string}} $parts
      *
-     * @return array<string,string>
+     * @return array{env:string, clo:string, head:string, mouth:string, eyes:string, top:string}
      */
-    private function partsToElements(array $bodyParts, array $options): array
+    private function partsToElements(array $parts): array
     {
-        $elements = [];
-        foreach ($bodyParts as $index => $settings) {
-            $elements[$index] = $this->mapElement($index, $settings, $options);
-        }
+        $reducer = function(array $elements, string $name) use ($parts): array {
+            $elements[$name] = $this->createElement($name, $parts[$name]['part'], $parts[$name]['theme']);
+
+            return $elements;
+        };
+
+        /** @var array{env:string, clo:string, head:string, mouth:string, eyes:string, top:string} $elements */
+        $elements = array_reduce(self::BODY_PARTS, $reducer, []);
 
         return $elements;
     }
 
-    /**
-     * @param array{part:string, theme:string}                                      $settings
-     * @param array{ver: array{part:string|null, theme:string|null}, sansEnv: bool} $options
-     */
-    private function mapElement(string $name, array $settings, array $options): string
+    private function createElement(string $name, string $part, string $theme): string
     {
-        if ('env' === $name && $options['sansEnv']) {
-            return '';
-        }
-
-        $part = $options['ver']['part'] ?? $settings['part'];
-        $theme = $options['ver']['theme'] ?? $settings['theme'];
         $colors = self::themes()[$part][$theme][$name];
         $index = 0;
         $replace = function (array $result) use ($colors, &$index): string {
@@ -200,6 +235,21 @@ class Multiavatar
         $element = preg_replace_callback('/#(.*?)+(?=;)/', $replace, self::shapes()[$part][$name]);
 
         return $element;
+    }
+
+    /**
+     * @param array{env:string, clo:string, head:string, mouth:string, eyes:string, top:string} $elements
+     * @param array{ver:array{part:string|null, theme:string|null}, sansEnv:bool} $options
+     *
+     * @return array{env:string, clo:string, head:string, mouth:string, eyes:string, top:string}
+     */
+    private function filterElements(array $elements, array $options): array
+    {
+        if ($options['sansEnv']) {
+            $elements['env'] = '';
+        }
+
+        return $elements;
     }
 
     /**
