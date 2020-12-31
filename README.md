@@ -49,20 +49,31 @@ See `index.php` for examples.
 
 ### API ###
 
-This PHP script is powering the [Multiavatar API](https://api.multiavatar.com). Simply pass the avatar's ID as the URL parameter, and the API will return the avatar's SVG code.
+This PHP script is powering the [Multiavatar API](https://api.multiavatar.com).
+
+To get an avatar as SVG code, add the avatar's ID to the URL:
 
 ```
-https://api.multiavatar.com/v1/Starcrasher
+https://api.multiavatar.com/Binx Bond
 ```
-
-Below is a JavaScript API call example:
+JavaScript API call example to get SVG code:
 
 ```
 let avatarId = 'Binx Bond'
-fetch('https://api.multiavatar.com/v1/'
+fetch('https://api.multiavatar.com/'
 +JSON.stringify(avatarId))
   .then(res => res.text())
   .then(svg => console.log(svg))
+```
+To get an avatar as SVG file, add .svg to the end of the URL:
+
+```
+https://api.multiavatar.com/Binx Bond.svg
+```
+To get an avatar as PNG file, add .png to the end of the URL:
+
+```
+https://api.multiavatar.com/Binx Bond.png
 ```
 
 

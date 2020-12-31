@@ -26,6 +26,12 @@ $multiavatar = new Multiavatar($avatarId, null, array("part" => "08", "theme" =>
 echo($multiavatar->svgCode);
 
 
+// Generate a specific version
+$avatarId = "Pandalion";
+$multiavatar = new Multiavatar($avatarId, null, array("part" => "15", "theme" => "B"));
+echo($multiavatar->svgCode);
+
+
 // Test with integer
 $avatarId = 123456789;
 $multiavatar = new Multiavatar($avatarId, null, null);
