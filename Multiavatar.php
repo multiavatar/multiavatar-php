@@ -125,7 +125,7 @@ class Multiavatar {
         $themes['03']['A']['top'] = ["#8eff45", "#8eff45", "none", "none"];
     
         $themes['03']['B']['env'] = ["#00a58c"];
-        $themes['03']['B']['clo'] = ["#000", "#5b00", "#5100", "#a000", "#a000"];
+        $themes['03']['B']['clo'] = ["#000", "none", "none", "none", "none"];
         $themes['03']['B']['head'] = ["#FAD2B9"];
         $themes['03']['B']['mouth'] = ["#fff", "#000"];
         $themes['03']['B']['eyes'] = ["#000"];
@@ -172,7 +172,7 @@ class Multiavatar {
         $themes['05']['B']['clo'] = ["#000", "#435363", "#435363", "#000", "none", "#e7ecf2", "#e7ecf2"];
         $themes['05']['B']['head'] = ["#f5d4a6"];
         $themes['05']['B']['mouth'] = ["#000", "#af9f94"];
-        $themes['05']['B']['eyes'] = ["#9ff3ffdb", "#000", "#9ff3ffdb", "#000", "#2f508a", "#000", "#000", "#000", "none", "none", "none", "none"];
+        $themes['05']['B']['eyes'] = ["#9ff3ff;opacity:0.96", "#000", "#9ff3ff;opacity:0.96", "#000", "#2f508a", "#000", "#000", "#000", "none", "none", "none", "none"];
         $themes['05']['B']['top'] = ["#ff9a00", "#ff9a00"];
     
         $themes['05']['C']['env'] = ["#884f00"];
@@ -304,7 +304,7 @@ class Multiavatar {
         $themes['11']['B']['clo'] = ["#FFBA32", "#484848", "#4e4e4e", "#fff", "#fff"];
         $themes['11']['B']['head'] = ["#ab5f2c"];
         $themes['11']['B']['mouth'] = ["#191919", "#191919"];
-        $themes['11']['B']['eyes'] = ["#000", "#ff23fa63", "#000"];
+        $themes['11']['B']['eyes'] = ["#000", "#ff23fa;opacity:0.39", "#000"];
         $themes['11']['B']['top'] = ["#ff90f4", "#ff90f4", "#ff90f4"];
     
         $themes['11']['C']['env'] = ["#22535d"];
@@ -385,14 +385,14 @@ class Multiavatar {
         $themes['15']['A']['clo'] = ["#000", "#00FFFF"];
         $themes['15']['A']['head'] = ["#755227"];
         $themes['15']['A']['mouth'] = ["#fff", "#000"];
-        $themes['15']['A']['eyes'] = ["black", "#008a", "aqua"];
+        $themes['15']['A']['eyes'] = ["black", "#008;opacity:0.67", "aqua"];
         $themes['15']['A']['top'] = ["#fff", "#fff", "#fff", "#fff", "#fff"];
     
         $themes['15']['B']['env'] = ["#00D0D4"];
         $themes['15']['B']['clo'] = ["#000", "#fff"];
         $themes['15']['B']['head'] = ["#755227"];
         $themes['15']['B']['mouth'] = ["#fff", "#000"];
-        $themes['15']['B']['eyes'] = ["black", "#1df7ffa3", "#fcff2c"];
+        $themes['15']['B']['eyes'] = ["black", "#1df7ff;opacity:0.64", "#fcff2c"];
         $themes['15']['B']['top'] = ["#fff539", "none", "#fff539", "none", "#fff539"];
     
         $themes['15']['C']['env'] = ["#DC75FF"];
