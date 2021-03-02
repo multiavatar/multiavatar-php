@@ -4,7 +4,7 @@
 
 [Multiavatar](https://multiavatar.com) is a multicultural avatar generator.
 
-In total, it is possible to generate **12,230,590,464** unique avatars.
+In total, it is possible to generate **12,230,590,464** cryptographically unique avatars.
 
 Initially coded in JavaScript, this version of Multiavatar is re-created in PHP. It can be used in PHP-based backend environments.
 
@@ -29,9 +29,8 @@ composer require multiavatar/multiavatar-php
 ### Usage ###
 
 ```
-$avatarId = "Binx Bond";
-$multiavatar = new Multiavatar($avatarId, null, null);
-echo($multiavatar->svgCode);
+$multiavatar = new Multiavatar();
+$svgCode = $multiavatar("Binx Bond", null, null);
 ```
 
 For advanced usage, pass boolean `true` as the second parameter if you wish to generate an avatar without the environment part.
@@ -39,12 +38,10 @@ For advanced usage, pass boolean `true` as the second parameter if you wish to g
 Pass an associative array as the third parameter to generate a specific avatar version.
 
 ```
+$multiavatar = new Multiavatar();
 $avatarId = "ANY_STRING";
-$multiavatar = new Multiavatar($avatarId, true, array("part" => "11", "theme" => "C"));
-echo($multiavatar->svgCode);
+$svgCode = $multiavatar($avatarId, true, array("part" => "11", "theme" => "C"));
 ```
-
-See `index.php` for examples.
 
 
 ### API ###
@@ -75,6 +72,22 @@ To get an avatar as PNG file, add .png to the end of the URL:
 ```
 https://api.multiavatar.com/Binx Bond.png
 ```
+
+
+### Testing ###
+
+To catch bugs, the representation of tests should be visual because not all bugs have programmatic errors. For example, if an equal length color array is mixed, or a double semicolon appears in a color string, in such cases an error is not thrown, but the visual representation of avatar(-s) becomes broken.
+
+There are two types of tests, currently available in `index.php` and `other.php` files. Simply load these files in your browser from your PHP web server.
+
+In the `index.php` file, visually presented are all 48 base versions or avatars. If all 48 base versions are good, then it means that all 12 billion are also good, because the 12 billion are constructed from different parts of the 48 base versions. All avatars in this file should look exactly the same as in the JavaScript repository's `\svg\index.html` file.
+
+In the `other.php` file, additional various tests are performed to test different approaches how to generate avatars, specific avatar versions, or some repository-specific cases.
+
+
+### Contributors ###
+
+Ignace Nyamagana Butera ([@nyamsprod](https://github.com/nyamsprod))
 
 
 ### License ###
